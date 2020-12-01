@@ -3,7 +3,8 @@ import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { StoreModule } from "@ngrx/store";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { TokenInterceptor } from "./interceptors/token.interceptor";
 
 @NgModule({
   declarations: [
@@ -12,9 +13,15 @@ import { StoreModule } from "@ngrx/store";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({})
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

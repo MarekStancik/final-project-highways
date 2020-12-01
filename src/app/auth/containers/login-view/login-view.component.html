@@ -1,0 +1,15 @@
+<div class="login-container">
+    <div class="right">
+      <div class="divider"></div>
+      <form [formGroup]="loginGroup">
+        <input type="text" formControlName="username" placeholder="Username">
+        <input type="password" formControlName="password" placeholder="Password">
+        <div class="tools-row form-margin">
+          <input type="checkbox" status="basic" id="remember" formControlName="remember">
+          <label for="remember"> Remember me</label>
+        </div>
+        <button [disabled]="loading$ | async" status="basic" (click)="login()" shape="round">Login</button>
+      </form>
+    </div>
+</div>
+  
