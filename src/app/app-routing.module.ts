@@ -9,7 +9,12 @@ const routes: Routes = [
   },
   {
     path: "auth",
-    loadChildren: () => import("./auth/auth.module").then(module => module.AuthModule)
+    loadChildren: () => import("./modules/auth/auth.module").then(module => module.AuthModule)
+  },
+  {
+    path: "app",
+    canActivate: [AuthGuard],
+    loadChildren: () => import("./modules/root/root.module").then(module => module.RootModule)
   }
 ];
 
