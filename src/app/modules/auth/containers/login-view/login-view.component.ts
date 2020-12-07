@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 import { BehaviorSubject } from "rxjs";
 import { AuthService } from "src/app/shared/services/auth.service";
 
@@ -15,6 +16,7 @@ export class LoginViewComponent {
     password: new FormControl("", Validators.required),
     remember: new FormControl(false)
   });
+  public faUser = faKey;
 
   public loading$ = new BehaviorSubject(false);
 

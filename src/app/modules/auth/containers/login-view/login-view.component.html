@@ -1,29 +1,24 @@
-<div class="login-container">
-    <div class="right">
-      <div class="divider"></div>
-      <form [formGroup]="loginGroup">
-        <mat-form-field appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput type="text" formControlName="username" placeholder="Username">
-          <mat-error *ngIf="loginGroup.getError('required','username')">
-            Username is required
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" placeholder="Password">
-          <mat-error *ngIf="loginGroup.getError('required','username')">
-            Password is required
-          </mat-error>
-        </mat-form-field>
-        <div class="tools-row form-margin">
-          <input type="checkbox" status="basic" id="remember" formControlName="remember">
-          <label for="remember"> Remember me</label>
-        </div>
-        <button mat-raised-button [disabled]="!loginGroup.valid || (loading$ | async)" (click)="login()">Login</button>
-      </form>
+<div class="center">
+  <form [formGroup]="loginGroup">
+    <fa-icon [icon]="faUser" [fixedWidth]="true"></fa-icon>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" formControlName="username" placeholder="Username">
+      <mat-error *ngIf="loginGroup.getError('required','username')">
+        Username is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="Password">
+      <mat-error *ngIf="loginGroup.getError('required','username')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+    <div class="tools-row form-margin">
+      <input type="checkbox" status="basic" id="remember" formControlName="remember">
+      <label for="remember"> Remember me</label>
     </div>
+    <button mat-raised-button [disabled]="!loginGroup.valid || (loading$ | async)" (click)="login()">Login</button>
+  </form>
 </div>
-
-
-  

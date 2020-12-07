@@ -1,52 +1,50 @@
-@import '~src/styles/variables';
+@import "~src/styles/variables";
 :host {
-  .login-container {
-    width: 100%;
+  display: flex;
+  flex: 1;
+  .center {
+    position: absolute;
     height: 100%;
-    position: relative;
-    .right {
-      position: absolute;
-      height: 100%;
-      top: 0;
-      width: 100%;
-      background: $color-black;
+    top: 0;
+    width: 100%;
+    background: $color-black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+
+    fa-icon {
       display: flex;
-      align-items: center;
+      padding: 0.5em 0.6em;
+      font-size: 64px;
+      color: $color-black;
       justify-content: center;
+    }
+
+    form {
+      display: flex;
       flex-flow: column;
-      .divider {
-        margin: 30px auto 35px;
+      width: 298px;
+      border: 2px solid $color-blue;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: white;
+
+      .form-margin,
+      button {
+        margin-top: 28px;
       }
-      form {
-        display: flex;
-        flex-flow: column;
-        width: 298px;
-        border: 2px solid $color-blue;
-        border-radius: 5px;
-        padding: 10px;
-        background-color: white;
 
-        .form-margin,
-        button {
-          margin-top: 28px;
-        }
+      button {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        color: white;
+        background-color: $color-black;
+      }
 
-        .tools-row {
-          display: flex;
-          nb-checkbox {
-            margin: auto auto auto 0;
-          }
-          p {
-            margin: auto 0 auto auto;
-          }
-        }
-
-        button {
-          width: 75%;
-          margin-left: auto;
-          margin-right: auto;
-          // color: nb-theme(color-primary-500);
-        }
+      button:disabled{
+          background-color: rgba($color: #000000, $alpha: 0.2);
       }
     }
   }
