@@ -27,7 +27,7 @@ export class RootViewComponent implements OnInit {
       route: "system"
     },
   ];
-  selectedMainMenuItem = new BehaviorSubject(this.menuItems[0]);
+  selectedMainMenuItem$ = new BehaviorSubject(this.menuItems[0]);
 
   constructor() {
   }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { AuthService } from "src/app/shared/services/auth.service";
+import { UiStateService } from "src/app/shared/services/ui-state.service";
 
 @Component({
   selector: "app-top-menu",
@@ -10,13 +12,9 @@ export class TopMenuComponent implements OnInit {
 
   faUser = faUser;
 
-  constructor() { }
+  constructor(public uiState: UiStateService, public auth: AuthService) { }
 
   ngOnInit(): void {
-  }
-
-  openQuickMenu() {
-
   }
 
 }

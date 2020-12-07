@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import {Router} from "@angular/router";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { UiStateService } from "src/app/shared/services/ui-state.service";
 
 export interface MainMenuItem {
   name: string;
@@ -23,7 +24,7 @@ export class MainMenuComponent implements OnInit {
 
   @Output() changed = new EventEmitter();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private uiState: UiStateService) {
   }
 
   ngOnInit(): void {
@@ -38,11 +39,13 @@ export class MainMenuComponent implements OnInit {
     } else {
       this.selected = this.menuItems.filter((x: MainMenuItem) => x.route === route)[0];
     }
+    this.uiState.topMenuTitle$.next(this.selected.name);
   }
 
   selectItem(item: MainMenuItem): void {
     this.selected = item;
     this.router.navigate(["app", item.route]);
+    this.uiState.topMenuTitle$.next(item.name);
     this.changed.emit(item);
   }
 }

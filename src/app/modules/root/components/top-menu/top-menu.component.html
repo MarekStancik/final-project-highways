@@ -1,12 +1,18 @@
 <div class="container">
-    <span>Dashboard</span>
+    <span>{{ uiState.topMenuTitle$ | async }}</span>
 
-    <div class="top-menu-user"
-       (click)="openQuickMenu()">
+    <div class="top-menu-user" [matMenuTriggerFor]="menu">
        <p>Peter Pan</p>
   <!--  <p>{{userService.authData$.getValue()?.user?.firstName}} {{userService.authData$.getValue()?.user?.lastName}}</p> -->
     <fa-icon [icon]="faUser"></fa-icon>
   </div>
 </div>
 
-<div #elementRef style="position: absolute; top: 58px; right: 46px; z-index: 33;"></div>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <span>Manage</span>
+  </button>
+  <button mat-menu-item (click)="auth.logout()">
+    <span>Logout</span>
+  </button>
+</mat-menu>
