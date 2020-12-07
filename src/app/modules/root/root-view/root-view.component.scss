@@ -1,0 +1,29 @@
+:host {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+
+    .main-container {
+        display: flex;
+        flex: 1;
+
+        .side-menu-container {
+            height: 100%;
+            display: flex;
+        }
+
+        .body-container {
+            //background: #CFD8DC;// #BBDEFB;
+            flex: 1;
+            display: flex;
+            max-width: calc(100% - 75px);
+        }
+
+        .hidden-router {
+            flex: 1 1 auto;
+            display: flex;
+            overflow: hidden;
+          }
+    }
+}

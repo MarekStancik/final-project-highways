@@ -1,0 +1,35 @@
+:host {
+    .container {
+        background: #37474f;
+        width: 100%;
+        height: 65px;
+        flex-direction: row;
+        display: flex;
+        color: #b3e5fc;
+
+        span {
+            flex: 1;
+            margin: auto auto auto 13px;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .top-menu-user {
+            display: flex;
+            flex-direction: row;
+            margin: auto 46px auto auto;
+            cursor: pointer;
+
+            kit-avatar {
+                margin: auto 0;
+            }
+
+            p {
+                margin: auto 13px auto 0;
+                letter-spacing: 1px;
+                font-weight: 700;
+                // color: nb-theme(light-gray);
+            }
+        }
+    }
+}

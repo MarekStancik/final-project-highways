@@ -1,0 +1,12 @@
+<div class="container">
+    <span>Dashboard</span>
+
+    <div class="top-menu-user"
+       (click)="openQuickMenu()">
+       <p>Peter Pan</p>
+  <!--  <p>{{userService.authData$.getValue()?.user?.firstName}} {{userService.authData$.getValue()?.user?.lastName}}</p> -->
+    <fa-icon [icon]="faUser"></fa-icon>
+  </div>
+</div>
+
+<div #elementRef style="position: absolute; top: 58px; right: 46px; z-index: 33;"></div>

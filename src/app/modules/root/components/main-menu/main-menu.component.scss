@@ -1,0 +1,32 @@
+@import '~src/styles/variables';
+
+:host {
+    .container {
+        width: 65px;
+        height: 100%;
+        background: $color-blue;
+        padding: 2px 12px;
+
+        .item {
+            width: 52px;
+            height: 52px;
+            border-radius: 8px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: grey;
+            cursor: pointer;
+            margin-top: 12px;
+
+            &.selected {
+                background: $color-black;
+                color: white;
+            }
+
+            &:not(.selected):hover {
+                background: white;
+            }
+        }
+    }
+}

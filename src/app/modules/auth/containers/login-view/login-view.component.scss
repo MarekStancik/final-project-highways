@@ -15,18 +15,14 @@
     .divider {
       margin: 30px auto 35px;
     }
-    p {
-      font-size: 13px;
-      line-height: 16px;
-      text-align: center;
-      letter-spacing: 0.08em;
-      // color: nb-theme(light-gray);
-    }
     form {
       display: flex;
       flex-flow: column;
       width: 298px;
-      input[type=password], .form-margin, button {
+      border: 2px solid gray;
+      border-radius: 5px;
+      padding: 10px;
+      .form-margin, button {
         margin-top: 28px;
       }
 

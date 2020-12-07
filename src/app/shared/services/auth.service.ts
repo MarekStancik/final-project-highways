@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable, ObservableInput, of } from "rxjs";
+import { Observable, ObservableInput, throwError } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Auth } from "../models/auth.model";
@@ -17,6 +17,7 @@ export const SESSION_OBJECT = "session-object";
 })
 export class AuthService {
 
+    public redirectUrl: string;
     constructor(
         private http: HttpClient,
         private user: UserService,
@@ -26,9 +27,8 @@ export class AuthService {
     }
 
     public login(request: Auth.Request): Observable<Auth.Response> {
-        return this.http.post(`${environment.apiUrl}/v1/authentication`, request)
+        return this.http.post<Auth.Response>(`${environment.apiUrl}/v1/authentication`, request)
         .pipe(
-            map(data => data as Auth.Response),
             tap(Response => this.handleLogin(Response)),
             catchError(error => this.handleLoginError(error))
         );
@@ -49,21 +49,22 @@ export class AuthService {
     }
 
     private handleLoginError(loginError: any): ObservableInput<any> {
-        switch (loginError.code) {
-            case "API_UNREACHABLE":
-                // { errorMessage: 'The service is currently unreachable. Please try again later.' }
+        let err = null;
+        switch (loginError.status) {
+            case 0:
+                err = { errorMessage: "The service is currently unreachable. Please try again later." };
                 break;
-            case "BAD_REQUEST":
-                // { errorMessage: 'You haven't entered username or password. Please enter your credentials to continue.' }
+            case 404:
+                err = { errorMessage: "You haven't entered username or password. Please enter your credentials to continue." };
                 break;
-            case "CONFLICT":
-                // { errorMessage: 'The server has rejected your credentials. Please check your username and password and try again. If the problem persists, please contact system administrator.' }
+            case 409:
+                err = { errorMessage: "The server has rejected your credentials. Please check your username and password and try again. If the problem persists, please contact system administrator." };
                 break;
             default:
-                // { errorMessage: 'An unknown error occurred. Please contact support.' }
+                err = { errorMessage: "An unknown error occurred. Please contact support." };
                 break;
         }
-        return of(false);
+        return throwError(err);
     }
 
     private getInfo(): void {
@@ -71,10 +72,11 @@ export class AuthService {
             .subscribe((res: Auth.Info) => {
                 localStorage.setItem(SESSION_OBJECT, JSON.stringify(res));
                 this.user.authData$.next(res);
-                //this.enums.initEnums();
+                // this.enums.initEnums();
                 if (this.router.url.includes("login")) {
                     setTimeout(() => {
-                        this.router.navigateByUrl("/app");
+                        this.router.navigateByUrl(this.redirectUrl || "/app");
+                        this.redirectUrl = null;
                     });
                 }
             }, error => {

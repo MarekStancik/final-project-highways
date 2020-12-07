@@ -1,1 +1,9 @@
-<p>root-view works!</p>
+<app-top-menu></app-top-menu>
+
+<div class="main-container">
+  <div class="side-menu-container">
+    <app-main-menu [menuItems]="menuItems" [routeOrder]="2" [selected]="selectedMainMenuItem | async"
+      (changed)="selectedMainMenuItem.next($event)"></app-main-menu>
+  </div>
+  <router-outlet></router-outlet>
+</div>

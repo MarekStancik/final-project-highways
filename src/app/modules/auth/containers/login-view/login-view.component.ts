@@ -8,26 +8,28 @@ import { AuthService } from "src/app/shared/services/auth.service";
   styleUrls: ["./login-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginViewComponent implements OnInit {
+export class LoginViewComponent {
 
   public loginGroup = new FormGroup({
     username: new FormControl("", Validators.required),
     password: new FormControl("", Validators.required),
-    remember: new FormControl(false, Validators.required)
+    remember: new FormControl(false)
   });
 
   public loading$ = new BehaviorSubject(false);
 
   constructor(private auth: AuthService) { }
 
-  ngOnInit(): void {
-  }
-
   public login(): void {
     this.loading$.next(true);
-    this.auth.login(this.loginGroup.value).subscribe(res => {
-    }, e => {
-      this.loading$.next(false);
-    });
+    this.auth.login(this.loginGroup.value)
+      .subscribe(
+        res => {
+    
+        },
+        err => {
+          alert(err.errorMessage);
+          this.loading$.next(false);
+        });
   }
 }

@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { faAccusoft } from "@fortawesome/free-brands-svg-icons";
+import { faAddressBook, faBacon, faCogs, faCubes } from "@fortawesome/free-solid-svg-icons";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
   templateUrl: "./root-view.component.html",
@@ -7,9 +10,30 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 })
 export class RootViewComponent implements OnInit {
 
-  constructor() { }
+  menuItems: any = [
+    {
+      name: "Dashboard",
+      icon: faAccusoft,
+      route: "routes"
+    },
+    {
+      name: "Users",
+      icon: faAddressBook,
+      route: "users"
+    },
+    {
+      name: "Settings",
+      icon: faCogs,
+      route: "system"
+    },
+  ];
+  selectedMainMenuItem = new BehaviorSubject(this.menuItems[0]);
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
+
 
 }
