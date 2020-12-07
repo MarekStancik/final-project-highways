@@ -1,25 +1,95 @@
-<div  class="header-wrapper">
-    <div class="title-box">
-        <fa-icon *ngIf="icon" [icon]="icon" [fixedWidth]="true"></fa-icon>
-        <!-- <fa-duotone-icon *ngIf="icon" [icon]="icon" [fixedWidth]="true"></fa-duotone-icon> -->
-        <h2 *ngIf="mode === 'view' || mode === 'edit'">{{ (title$ | async) || "-" }}</h2>
-        <h2 *ngIf="mode === 'create'">{{ createTitle || "-" }}</h2>
+<ng-container *ngIf="mode$ | async as mode">
+    <!-- Header -->
+    <div class="header-wrapper">
+        <div class="title-box">
+            <fa-icon *ngIf="icon" [icon]="icon" [fixedWidth]="true"></fa-icon>
+            <h2 *ngIf="mode === 'view' || mode === 'edit'">{{ (title$ | async) || "-" }}</h2>
+            <h2 *ngIf="mode === 'create'">{{ createTitle || "-" }}</h2>
+        </div>
+        <div class="control-box">
+            <a *ngIf="mode === 'view' && canDelete" class="control">
+                <fa-icon [icon]="faTrash" [fixedWidth]="true"></fa-icon>
+            </a>
+            <a *ngIf="mode === 'view' && canEdit" class="control" [routerLink]="['edit']">
+                <fa-icon [icon]="faPencil" [fixedWidth]="true"></fa-icon>
+            </a>
+            <a *ngIf="mode === 'edit'" class="control" [class.disabled]="isSubmitting" [routerLink]="['./']">
+                <fa-icon [icon]="faArrow" [fixedWidth]="true"></fa-icon>
+            </a>
+            <a class="control" [class.disabled]="isSubmitting" [routerLink]="['..']">
+                <fa-icon [icon]="faTimes" [fixedWidth]="true"></fa-icon>
+            </a>
+        </div>
     </div>
-    <div class="control-box">
-        <a *ngIf="mode === 'view' && canDelete" class="control">
-            <fa-icon [icon]="faTrash" [fixedWidth]="true"></fa-icon>
-        </a>
-        <a *ngIf="mode === 'view' && canEdit" class="control" [routerLink]="['edit']">
-            <fa-icon [icon]="faPencil" [fixedWidth]="true"></fa-icon>
-        </a>
-        <a *ngIf="mode === 'edit'" class="control" [class.disabled]="isSubmitting" [routerLink]="['./']">
-            <fa-icon [icon]="faArrow" [fixedWidth]="true"></fa-icon>
-        </a>
-        <a class="control" [class.disabled]="isSubmitting" [routerLink]="['..']">
-            <fa-icon [icon]="faTimes" [fixedWidth]="true"></fa-icon>
-        </a>
+    <!-- Body -->
+    <div class="content-wrapper">
+        <!-- Form -->
+        <ng-container *ngIf="mode === 'create' || mode === 'edit'; else view">
+            <form [formGroup]="group">
+                <!-- Start Control  -->
+                <mat-form-field appearance="outline">
+                    <input type="text" placeholder="Start Point" formControlName="start" [matAutocomplete]="auto" matInput>
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <!-- End Control -->
+                <mat-form-field appearance="outline">
+                    <input type="text" placeholder="End Point" formControlName="end" [matAutocomplete]="auto" matInput>
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <!-- Name -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+                <!-- Length -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Length</mat-label>
+                    <input matInput type="number" formControlName="length">
+                </mat-form-field>
+            </form>
+        </ng-container>
+        <!-- View -->
+        <ng-template #view>
+            <ng-container *ngIf="object$ | async as object">
+                <div class="detail-record">
+                    <h2>Start Point</h2>
+                    <span>{{object.start}}</span>
+                </div>
+                <div class="detail-record">
+                    <h2>End Point</h2>
+                    <span>{{object.end}}</span>
+                </div>
+                <div class="detail-record">
+                    <h2>Name</h2>
+                    <span>{{object.name}}</span>
+                </div>
+                <div class="detail-record">
+                    <h2>Length</h2>
+                    <span>{{object.length}}</span>
+                </div>
+                <div class="detail-record">
+                    <h2>Avg Time</h2>
+                    <span>{{object.avgTime}}</span>
+                </div>
+                <!-- <mat-tab-group>
+                    <mat-tab label="Devices"> Devices </mat-tab>
+                    <mat-tab label="History"> History </mat-tab>
+                    <mat-tab label="Graphs"> Graphs </mat-tab>
+                </mat-tab-group> -->
+            </ng-container>
+        </ng-template>
     </div>
-</div>
-<div>
-    <span>Details</span>
-</div>
+    <!-- Bottom Buttons -->
+    <div *ngIf="mode !== 'view'">
+        <button mat-button>Save</button>
+        <button mat-button>Discard</button>
+    </div>
+</ng-container>

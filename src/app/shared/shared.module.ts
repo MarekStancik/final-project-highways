@@ -3,6 +3,8 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { ReactiveFormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
 
 
 
@@ -14,7 +16,9 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
   exports: [
     RouterModule,
     MatButtonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    MatInputModule,
   ]
 })
 export class SharedModule {

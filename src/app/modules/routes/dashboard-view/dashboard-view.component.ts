@@ -10,11 +10,11 @@ import { Route, RouteStatus } from "../../../shared/models/route.model";
 
 @UntilDestroy()
 @Component({
-  templateUrl: "./routes-list-view.component.html",
-  styleUrls: ["./routes-list-view.component.scss"],
+  templateUrl: "./dashboard-view.component.html",
+  styleUrls: ["./dashboard-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RoutesListViewComponent implements AfterViewInit {
+export class DashboardViewComponent implements AfterViewInit {
 
   private _detailOpened = false;
   public get detailOpened(): boolean {

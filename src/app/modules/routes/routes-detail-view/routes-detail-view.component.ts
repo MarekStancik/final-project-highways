@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { faArrowLeft, faBacon, faPencilAlt, faTimes, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { BehaviorSubject } from "rxjs";
-import { filter, take, tap } from "rxjs/operators";
+import { BehaviorSubject, Observable } from "rxjs";
+import { filter, map, startWith, take, tap } from "rxjs/operators";
+import { DetailViewMode } from "src/app/shared/models/detail-view-mode";
 import { RouteService } from "src/app/shared/services/route.service";
 
 @UntilDestroy()
@@ -17,7 +19,7 @@ export class RoutesDetailViewComponent implements OnInit {
   public canDelete = false;
   public canEdit = false;
   public isSubmitting = false;
-  public mode = "view";
+  public mode$: Observable<DetailViewMode>;
   public createTitle = "Create Route";
   public title$ = new BehaviorSubject("Route");
   public icon = faBacon;
@@ -26,21 +28,47 @@ export class RoutesDetailViewComponent implements OnInit {
   public faArrow = faArrowLeft;
   public faTimes = faTimes;
 
+  public group = new FormGroup({
+    start: new FormControl(""),
+    end: new FormControl(""),
+    name: new FormControl(""),
+    length: new FormControl(0)
+  });
+  public options: string[] = ["One", "Two", "Three"];
+  public filteredOptions$: Observable<string[]>;
+  public object$ = new BehaviorSubject(null);
+
   constructor(private route: ActivatedRoute, private routeService: RouteService) { }
 
   ngOnInit(): void {
+    this.filteredOptions$ = this.group.get("start").valueChanges.pipe(
+      startWith(""),
+      map(value => this._filter(value))
+    );
+
+    this.mode$ = this.route.data.pipe(map(data => data.detailViewMode || DetailViewMode.View));
+
     this.route.params
       .pipe(
         untilDestroyed(this),
-        tap(params => {
-          this.routeService.get(params.id)
+        filter(params => !!params.id),
+        map(params => params.id),
+        tap(id => {
+          this.routeService.get(id)
             .pipe(
-              take(1),
-              tap(data => this.title$.next(`Route ${data.name}`))
+              untilDestroyed(this),
+              tap(data => this.title$.next(`Route ${data.name}`)),
+              tap(data => this.object$.next(data))
             ).subscribe();
         })
       )
       .subscribe();
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
 
