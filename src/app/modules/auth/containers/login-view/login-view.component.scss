@@ -1,46 +1,52 @@
-.login-container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  .right {
-    position: absolute;
-    height: 100%;
-    top: 0;
+@import '~src/styles/variables';
+:host {
+  .login-container {
     width: 100%;
-    // background: nb-theme(main-blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: column;
-    .divider {
-      margin: 30px auto 35px;
-    }
-    form {
+    height: 100%;
+    position: relative;
+    .right {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      width: 100%;
+      background: $color-black;
       display: flex;
+      align-items: center;
+      justify-content: center;
       flex-flow: column;
-      width: 298px;
-      border: 2px solid gray;
-      border-radius: 5px;
-      padding: 10px;
-      .form-margin, button {
-        margin-top: 28px;
+      .divider {
+        margin: 30px auto 35px;
       }
-
-      .tools-row {
+      form {
         display: flex;
-        nb-checkbox {
-          margin: auto auto auto 0;
-        }
-        p {
-          margin: auto 0 auto auto;
-        }
-      }
+        flex-flow: column;
+        width: 298px;
+        border: 2px solid $color-blue;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: white;
 
-      button {
-        width: 75%;
-        margin-left: auto;
-        margin-right: auto;
-       // color: nb-theme(color-primary-500);
+        .form-margin,
+        button {
+          margin-top: 28px;
+        }
+
+        .tools-row {
+          display: flex;
+          nb-checkbox {
+            margin: auto auto auto 0;
+          }
+          p {
+            margin: auto 0 auto auto;
+          }
+        }
+
+        button {
+          width: 75%;
+          margin-left: auto;
+          margin-right: auto;
+          // color: nb-theme(color-primary-500);
+        }
       }
     }
   }
