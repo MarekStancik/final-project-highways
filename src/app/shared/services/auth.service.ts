@@ -68,11 +68,10 @@ export class AuthService {
     }
 
     private getInfo(): void {
-        this.http.get(`${environment.apiUrl}/v1/authentication`)
-            .subscribe((res: Auth.Info) => {
+        this.http.get<Auth.Info>(`${environment.apiUrl}/v1/authentication`)
+            .subscribe(res => {
                 localStorage.setItem(SESSION_OBJECT, JSON.stringify(res));
                 this.user.authData$.next(res);
-                // this.enums.initEnums();
                 if (this.router.url.includes("login")) {
                     setTimeout(() => {
                         this.router.navigateByUrl(this.redirectUrl || "/app");

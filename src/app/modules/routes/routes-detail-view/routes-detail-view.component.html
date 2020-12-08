@@ -7,10 +7,10 @@
             <h2 *ngIf="mode === 'create'">{{ createTitle || "-" }}</h2>
         </div>
         <div class="control-box">
-            <a *ngIf="mode === 'view' && canDelete" class="control" (click)="delete()">
+            <a *ngIf="mode === 'view' && canDelete$ | async" class="control" (click)="delete()">
                 <fa-icon [icon]="faTrash" [fixedWidth]="true"></fa-icon>
             </a>
-            <a *ngIf="mode === 'view' && canEdit" class="control" [routerLink]="['edit']">
+            <a *ngIf="mode === 'view' && canEdit$ | async" class="control" [routerLink]="['edit']">
                 <fa-icon [icon]="faPencil" [fixedWidth]="true"></fa-icon>
             </a>
             <a *ngIf="mode === 'edit'" class="control" [class.disabled]="isSubmitting$ | async" [routerLink]="['..']">
@@ -66,23 +66,23 @@
             <ng-container *ngIf="object$ | async as object">
                 <div class="detail-record">
                     <h2>Start Point</h2>
-                    <span>{{object.start}}</span>
+                    <span>{{object.start || "-"}}</span>
                 </div>
                 <div class="detail-record">
                     <h2>End Point</h2>
-                    <span>{{object.end}}</span>
+                    <span>{{object.end || "-"}}</span>
                 </div>
                 <div class="detail-record">
                     <h2>Name</h2>
-                    <span>{{object.name}}</span>
+                    <span>{{object.name || "-"}}</span>
                 </div>
                 <div class="detail-record">
                     <h2>Length</h2>
-                    <span>{{object.length}}</span>
+                    <span>{{object.length || "-"}}</span>
                 </div>
                 <div class="detail-record">
                     <h2>Avg Time</h2>
-                    <span>{{object.avgTime}}</span>
+                    <span>{{object.avgTime || "-"}}</span>
                 </div>
                 <!-- <mat-tab-group>
                     <mat-tab label="Devices"> Devices </mat-tab>

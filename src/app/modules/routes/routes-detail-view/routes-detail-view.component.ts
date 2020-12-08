@@ -7,7 +7,9 @@ import { BehaviorSubject, combineLatest, Observable } from "rxjs";
 import { filter, map, startWith, take, tap } from "rxjs/operators";
 import { DetailViewMode } from "src/app/shared/models/detail-view-mode";
 import { Route } from "src/app/shared/models/route.model";
+import { AuthService } from "src/app/shared/services/auth.service";
 import { RouteService } from "src/app/shared/services/route.service";
+import { UserService } from "src/app/shared/services/user.service";
 
 @UntilDestroy()
 @Component({
@@ -17,8 +19,8 @@ import { RouteService } from "src/app/shared/services/route.service";
 })
 export class RoutesDetailViewComponent implements OnInit {
 
-  public canDelete = true;
-  public canEdit = true;
+  public canDelete$: Observable<boolean>;
+  public canEdit$: Observable<boolean>;
   public isSubmitting$ = new BehaviorSubject(false);
   public mode$: Observable<DetailViewMode>;
   public createTitle = "Create Route";
@@ -39,7 +41,12 @@ export class RoutesDetailViewComponent implements OnInit {
   public filteredOptions$: Observable<string[]>;
   public object$ = new BehaviorSubject<Route>(null);
 
-  constructor(private route: ActivatedRoute, private router: Router, private routeService: RouteService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private routeService: RouteService,
+    private user: UserService
+  ) { }
 
   ngOnInit(): void {
     this.filteredOptions$ = this.group.get("start").valueChanges.pipe(
@@ -48,6 +55,8 @@ export class RoutesDetailViewComponent implements OnInit {
     );
 
     this.mode$ = this.route.data.pipe(map(data => data.detailViewMode || DetailViewMode.View));
+    this.canDelete$ = this.user.authData$.pipe(filter(data => !!data), map(data => data.permissions.route.includes("delete")));
+    this.canEdit$ = this.user.authData$.pipe(filter(data => !!data), map(data => data.permissions.route.includes("update")));
 
     this.route.params
       .pipe(
@@ -92,7 +101,16 @@ export class RoutesDetailViewComponent implements OnInit {
         } else if (mode === DetailViewMode.Edit) {
           sub = this.routeService.update(Object.assign({ id: this.object$.value.id }, this.group.value));
         }
-        sub.pipe(take(1), tap(_ => this.isSubmitting$.next(false))).subscribe({ error: err => alert(err.message) });
+        sub.pipe(take(1)).subscribe({
+          next: () => {
+            this.isSubmitting$.next(false);
+            this.router.navigate(["../"], { relativeTo: this.route });
+          },
+          error: err => {
+            this.isSubmitting$.next(false);
+            alert(err.message);
+          }
+        });
       })
     ).subscribe();
   }
