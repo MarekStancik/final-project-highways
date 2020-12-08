@@ -6,6 +6,7 @@ import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { BehaviorSubject, Observable } from "rxjs";
 import { filter, map, startWith, take, tap } from "rxjs/operators";
 import { DetailViewMode } from "src/app/shared/models/detail-view-mode";
+import { Route } from "src/app/shared/models/route.model";
 import { RouteService } from "src/app/shared/services/route.service";
 
 @UntilDestroy()
@@ -16,8 +17,8 @@ import { RouteService } from "src/app/shared/services/route.service";
 })
 export class RoutesDetailViewComponent implements OnInit {
 
-  public canDelete = false;
-  public canEdit = false;
+  public canDelete = true;
+  public canEdit = true;
   public isSubmitting = false;
   public mode$: Observable<DetailViewMode>;
   public createTitle = "Create Route";
@@ -36,9 +37,9 @@ export class RoutesDetailViewComponent implements OnInit {
   });
   public options: string[] = ["One", "Two", "Three"];
   public filteredOptions$: Observable<string[]>;
-  public object$ = new BehaviorSubject(null);
+  public object$ = new BehaviorSubject<Route>(null);
 
-  constructor(private route: ActivatedRoute, private routeService: RouteService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private routeService: RouteService) { }
 
   ngOnInit(): void {
     this.filteredOptions$ = this.group.get("start").valueChanges.pipe(
@@ -57,6 +58,7 @@ export class RoutesDetailViewComponent implements OnInit {
           this.routeService.get(id)
             .pipe(
               untilDestroyed(this),
+              filter(d => !!d),
               tap(data => this.title$.next(`Route ${data.name}`)),
               tap(data => this.object$.next(data))
             ).subscribe();
@@ -71,5 +73,18 @@ export class RoutesDetailViewComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
+  public async submit(): Promise<void> {
+    await this.routeService.create(this.group.value).toPromise();
+  }
 
+  public async delete(): Promise<void> {
+    try {
+      if (confirm(`Confirm Deletion of route '${this.object$.value.name}'`)) {
+        await this.routeService.delete(this.object$.value).toPromise();
+        this.router.navigate(["../"], { relativeTo: this.route});
+      }
+    } catch (err) {
+      alert(err.message);
+    }
+  }
 }

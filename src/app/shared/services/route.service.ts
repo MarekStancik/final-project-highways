@@ -23,6 +23,10 @@ export class RouteService {
     return this.http.post<Route>(`${environment.apiUrl}/v1/routes`, route);
   }
 
+  public delete(route: Route): Observable<Route> {
+    return this.http.delete<Route>(`${environment.apiUrl}/v1/routes/${route.id}`);
+  }
+
   constructor(private http: HttpClient) {
     this.createSocket();
   }

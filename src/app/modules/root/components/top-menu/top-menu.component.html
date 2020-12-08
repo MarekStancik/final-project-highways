@@ -1,9 +1,9 @@
 <div class="container">
-    <span>{{ uiState.topMenuTitle$ | async }}</span>
+  <span>{{ uiState.topMenuTitle$ | async }}</span>
 
-    <div class="top-menu-user" [matMenuTriggerFor]="menu">
-       <p>Peter Pan</p>
-  <!--  <p>{{userService.authData$.getValue()?.user?.firstName}} {{userService.authData$.getValue()?.user?.lastName}}</p> -->
+  <div class="top-menu-user" [matMenuTriggerFor]="menu">
+    <p>Peter Pan</p>
+    <!--  <p>{{userService.authData$.getValue()?.user?.firstName}} {{userService.authData$.getValue()?.user?.lastName}}</p> -->
     <fa-icon [icon]="faUser"></fa-icon>
   </div>
 </div>
