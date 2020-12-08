@@ -13,10 +13,10 @@
             <a *ngIf="mode === 'view' && canEdit" class="control" [routerLink]="['edit']">
                 <fa-icon [icon]="faPencil" [fixedWidth]="true"></fa-icon>
             </a>
-            <a *ngIf="mode === 'edit'" class="control" [class.disabled]="isSubmitting" [routerLink]="['./']">
+            <a *ngIf="mode === 'edit'" class="control" [class.disabled]="isSubmitting$ | async" [routerLink]="['..']">
                 <fa-icon [icon]="faArrow" [fixedWidth]="true"></fa-icon>
             </a>
-            <a class="control" [class.disabled]="isSubmitting" [routerLink]="['..']">
+            <a class="control" [class.disabled]="isSubmitting$ | async" [routerLink]="['..']">
                 <fa-icon [icon]="faTimes" [fixedWidth]="true"></fa-icon>
             </a>
         </div>
@@ -58,7 +58,7 @@
 
                 <!-- Bottom Buttons -->
                 <button type="submit" mat-button>Save</button>
-                <button mat-button>Discard</button>
+                <button mat-button type="button" (click)="group.patchValue(object$.value)">Discard</button>
             </form>
         </ng-container>
         <!-- View -->

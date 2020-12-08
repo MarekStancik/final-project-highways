@@ -19,15 +19,13 @@ const routes: Routes = [
       {
         path: ":id",
         component: RoutesDetailViewComponent,
-        children: [
-          {
-            path: "edit",
-            component: RoutesDetailViewComponent,
-            data: {
-              detailViewMode: DetailViewMode.Edit
-            }
-          }
-        ]
+      },
+      {
+        path: ":id/edit",
+        component: RoutesDetailViewComponent,
+        data: {
+          detailViewMode: DetailViewMode.Edit
+        }
       }
     ]
   }

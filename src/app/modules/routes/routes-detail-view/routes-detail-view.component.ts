@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { faArrowLeft, faBacon, faPencilAlt, faTimes, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, combineLatest, Observable } from "rxjs";
 import { filter, map, startWith, take, tap } from "rxjs/operators";
 import { DetailViewMode } from "src/app/shared/models/detail-view-mode";
 import { Route } from "src/app/shared/models/route.model";
@@ -19,7 +19,7 @@ export class RoutesDetailViewComponent implements OnInit {
 
   public canDelete = true;
   public canEdit = true;
-  public isSubmitting = false;
+  public isSubmitting$ = new BehaviorSubject(false);
   public mode$: Observable<DetailViewMode>;
   public createTitle = "Create Route";
   public title$ = new BehaviorSubject("Route");
@@ -65,6 +65,13 @@ export class RoutesDetailViewComponent implements OnInit {
         })
       )
       .subscribe();
+
+    combineLatest([this.mode$, this.object$]).pipe(
+      untilDestroyed(this),
+      filter(([mode, object]) => !!mode && !!object && mode === DetailViewMode.Edit),
+      take(1),
+      tap(([_, object]) => this.group.patchValue(object))
+    ).subscribe();
   }
 
   private _filter(value: string): string[] {
@@ -74,14 +81,27 @@ export class RoutesDetailViewComponent implements OnInit {
   }
 
   public async submit(): Promise<void> {
-    await this.routeService.create(this.group.value).toPromise();
+    this.mode$.pipe(
+      untilDestroyed(this),
+      take(1),
+      tap((mode) => {
+        this.isSubmitting$.next(true);
+        let sub: Observable<Route> = null;
+        if (mode === DetailViewMode.Create) {
+          sub = this.routeService.create(this.group.value);
+        } else if (mode === DetailViewMode.Edit) {
+          sub = this.routeService.update(Object.assign({ id: this.object$.value.id }, this.group.value));
+        }
+        sub.pipe(take(1), tap(_ => this.isSubmitting$.next(false))).subscribe({ error: err => alert(err.message) });
+      })
+    ).subscribe();
   }
 
   public async delete(): Promise<void> {
     try {
       if (confirm(`Confirm Deletion of route '${this.object$.value.name}'`)) {
         await this.routeService.delete(this.object$.value).toPromise();
-        this.router.navigate(["../"], { relativeTo: this.route});
+        this.router.navigate(["../"], { relativeTo: this.route });
       }
     } catch (err) {
       alert(err.message);
