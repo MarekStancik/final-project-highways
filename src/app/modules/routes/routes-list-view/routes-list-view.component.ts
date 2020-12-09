@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from "@angular/core";
+import { MatInput } from "@angular/material/input";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
@@ -20,6 +21,7 @@ export class RoutesListViewComponent implements AfterViewInit {
   public dataSource: MatTableDataSource<Route>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatInput) filter: MatInput;
 
   constructor(private routeService: RouteService) {
     this.dataSource = new MatTableDataSource([]);
@@ -32,21 +34,13 @@ export class RoutesListViewComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.filter.stateChanges.subscribe(_ => this.dataSource.filter = this.filter.value);
     this.dataSource.sortingDataAccessor = (item, prop) => {
       if (prop === "route") {
         return item.start;
       }
       return (item as any)[prop];
     };
-  }
-
-  public applyFilter(event: any): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   public getColorForStatus(status: RouteStatus): string {

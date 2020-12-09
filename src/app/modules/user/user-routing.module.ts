@@ -9,6 +9,11 @@ import { UserViewComponent } from "./user-view/user-view.component";
 const routes: Routes = [
   {
     path: "",
+    pathMatch: "full",
+    redirectTo: "info",
+  },
+  {
+    path: "",
     component: UserViewComponent,
     children: [
       {
