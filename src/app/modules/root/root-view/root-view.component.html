@@ -2,8 +2,7 @@
 
 <div class="main-container">
   <div class="side-menu-container">
-    <app-main-menu [menuItems]="menuItems" [routeOrder]="2" [selected]="selectedMainMenuItem$ | async"
-      (changed)="selectedMainMenuItem$.next($event)"></app-main-menu>
+    <app-main-menu [menuItems]="menuItems" [routeOrder]="2"></app-main-menu>
   </div>
   <router-outlet></router-outlet>
 </div>

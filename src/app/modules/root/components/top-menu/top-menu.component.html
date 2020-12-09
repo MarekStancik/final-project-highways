@@ -2,14 +2,15 @@
   <span>{{ uiState.topMenuTitle$ | async }}</span>
 
   <div class="top-menu-user" [matMenuTriggerFor]="menu">
-    <p>Peter Pan</p>
-    <!--  <p>{{userService.authData$.getValue()?.user?.firstName}} {{userService.authData$.getValue()?.user?.lastName}}</p> -->
+    <p>
+      {{pascal((user.authData$ | async)?.user.username)}}
+    </p>
     <fa-icon [icon]="faUser"></fa-icon>
   </div>
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item [routerLink]="['user']">
     <!-- <fa-icon [icon]="['fab','pencil']"></fa-icon> -->
     <span>Manage</span>
   </button>

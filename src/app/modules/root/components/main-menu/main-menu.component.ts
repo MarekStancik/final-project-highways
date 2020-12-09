@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import {Router} from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { UiStateService } from "src/app/shared/services/ui-state.service";
+import { pascalCase } from "pascal-case";
 
 export interface MainMenuItem {
   name: string;
@@ -10,6 +12,7 @@ export interface MainMenuItem {
   routes?: MainMenuItem[];
 }
 
+@UntilDestroy()
 @Component({
   selector: "app-main-menu",
   templateUrl: "./main-menu.component.html",
@@ -18,7 +21,6 @@ export interface MainMenuItem {
 })
 export class MainMenuComponent implements OnInit {
   @Input() menuItems: MainMenuItem[];
-  @Input() selected: MainMenuItem;
   @Input() routeOrder: number;
   @Input() header: string;
 
@@ -28,24 +30,18 @@ export class MainMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initRouter();
-  }
-
-  private initRouter(): void {
-    const currentRoute = this.router.url.split("/");
-    const route = currentRoute[this.routeOrder];
-    if (!route) {
-      this.selected = this.menuItems[0];
-    } else {
-      this.selected = this.menuItems.filter((x: MainMenuItem) => x.route === route)[0];
-    }
-    this.uiState.topMenuTitle$.next(this.selected.name);
-  }
-
-  selectItem(item: MainMenuItem): void {
-    this.selected = item;
-    this.router.navigate(["app", item.route]);
-    this.uiState.topMenuTitle$.next(item.name);
-    this.changed.emit(item);
+    const activate = (url : string) => {
+      const currentRoute = url.split("/");
+      const route = currentRoute[this.routeOrder];
+      const name = this.menuItems.filter((x: MainMenuItem) => x.route === route)[0]?.name || pascalCase(route);
+      this.uiState.topMenuTitle$.next(name);
+    };
+    
+    activate(this.router.url);
+    this.router.events.pipe(untilDestroyed(this)).subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        activate(e.url);
+      }
+    });
   }
 }

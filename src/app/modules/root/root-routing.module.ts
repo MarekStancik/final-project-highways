@@ -24,6 +24,10 @@ const routes: Routes = [
         path: "system",
         loadChildren: () => import("../system/system.module").then(m => m.SystemModule)
       },
+      {
+        path: "user",
+        loadChildren: () => import("../user/user.module").then(m => m.UserModule)
+      }
     ]
   }
 ];

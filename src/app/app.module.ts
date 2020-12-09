@@ -6,7 +6,6 @@ import { AppComponent } from "./app.component";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptor } from "./interceptors/token.interceptor";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { SharedModule } from "./shared/shared.module";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
@@ -20,8 +19,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    SharedModule.forRoot()
+    BrowserAnimationsModule
   ],
   providers: [
     {

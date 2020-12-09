@@ -16,14 +16,6 @@ import { Route, RouteStatus } from "../../../shared/models/route.model";
 })
 export class RoutesListViewComponent implements AfterViewInit {
 
-  private _detailOpened = false;
-  public get detailOpened(): boolean {
-    return this._detailOpened;
-  }
-  public set detailOpened(val: boolean) {
-    this._detailOpened = val;
-  }
-
   public displayedColumns: string[] = ["route", "name", "length", "avgTime", "status"];
   public dataSource: MatTableDataSource<Route>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -31,6 +23,10 @@ export class RoutesListViewComponent implements AfterViewInit {
 
   constructor(private routeService: RouteService) {
     this.dataSource = new MatTableDataSource([]);
+    this.routeService.list$.pipe(
+      filter(data => !!data),
+      untilDestroyed(this),
+    ).subscribe(routes => this.dataSource.data = routes);
   }
 
   ngAfterViewInit(): void {
@@ -42,10 +38,6 @@ export class RoutesListViewComponent implements AfterViewInit {
       }
       return (item as any)[prop];
     };
-    this.routeService.list$.pipe(
-      filter(data => !!data),
-      untilDestroyed(this),
-    ).subscribe(routes => this.dataSource.data = routes);
   }
 
   public applyFilter(event: any): void {

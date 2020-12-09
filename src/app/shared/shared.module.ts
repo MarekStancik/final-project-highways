@@ -11,7 +11,7 @@ import { MatInputModule } from "@angular/material/input";
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
+    CommonModule
   ],
   exports: [
     RouterModule,
@@ -22,9 +22,4 @@ import { MatInputModule } from "@angular/material/input";
   ]
 })
 export class SharedModule {
-  static forRoot(){
-    return{
-      ngModule: SharedModule
-    };
-  }
  }

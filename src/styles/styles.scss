@@ -3,3 +3,48 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.filter-container {
+    flex: 1;
+    width: 100%;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    table {
+        flex: 1;
+
+        .data-row {
+            cursor: pointer;
+        }
+
+        .data-row.active {
+            background-color: $color-blue;
+        }
+
+        .data-row:hover {
+            background-color: $color-light-blue;
+        }
+    }
+}
+
+.button-bar-bottom {
+    display: flex;
+    position: fixed;
+    bottom: 48px;
+    right: 48px;
+    z-index: 6;
+    min-height: 80px;
+    justify-content: center;
+    align-items: center;
+
+    .body {
+        text-align: right;
+
+        button {
+            margin: 0rem 0.5rem;
+        }
+    }
+}

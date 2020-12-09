@@ -1,0 +1,31 @@
+@import "~src/styles/variables";
+
+:host{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .top-box{
+        color: $color-black;
+        display: flex;
+        flex-direction: column;
+        margin: 5% 0px 25px 0px;
+        align-items: center;
+        fa-icon{
+            font-size: 150px;
+            margin-bottom: 15px;
+        }
+    }
+
+    nav{
+        width: calc(100% - 50px);
+    }    
+
+    .router-container{
+        display: flex;
+        flex: 1 1 auto;
+        width: calc(100% - 50px);
+    }
+}

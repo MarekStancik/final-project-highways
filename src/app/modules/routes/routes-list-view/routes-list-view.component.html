@@ -1,4 +1,4 @@
-<mat-drawer-container class="main-container">
+<app-default-list-view>
     <mat-form-field class="filter-container" appearance="outline">
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
@@ -60,9 +60,4 @@
             </div>
         </div>
     </div>
-
-    <mat-drawer #drawer mode="side" position="end" [opened]="detailOpened" class="drawer-wrapper">
-        <router-outlet (activate)="detailOpened = true" (deactivate)="detailOpened = false"></router-outlet>
-    </mat-drawer>
-
-</mat-drawer-container>
+</app-default-list-view>
