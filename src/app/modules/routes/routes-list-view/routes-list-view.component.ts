@@ -25,9 +25,10 @@ export class RoutesListViewComponent implements AfterViewInit {
 
   constructor(private routeService: RouteService) {
     this.dataSource = new MatTableDataSource([]);
+    this.routeService.getAll();
     this.routeService.list$.pipe(
-      filter(data => !!data),
       untilDestroyed(this),
+      filter(data => !!data),
     ).subscribe(routes => this.dataSource.data = routes);
   }
 

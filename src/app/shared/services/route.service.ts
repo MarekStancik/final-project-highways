@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { filter, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Route } from "../models/route.model";
+import { UserService } from "./user.service";
+import { WsClient } from "./ws-api/ws-client";
 
 @Injectable({
   providedIn: "root"
@@ -19,6 +21,10 @@ export class RouteService {
     );
   }
 
+  public getAll(): void {
+    this.http.get<Route[]>(`${environment.apiUrl}/v1/routes`).subscribe(l => this.list$.next(l));
+  }
+
   public create(route: Route): Observable<Route> {
     return this.http.post<Route>(`${environment.apiUrl}/v1/routes`, route);
   }
@@ -31,29 +37,12 @@ export class RouteService {
     return this.http.delete<Route>(`${environment.apiUrl}/v1/routes/${route.id}`);
   }
 
-  constructor(private http: HttpClient) {
-    this.createSocket();
+  constructor(private http: HttpClient,private user: UserService) {
+    const client = new WsClient(http,user);
+    client.listen<Route>("update","route").subscribe(updatedObj => this.list$.next(this.list$.value.map(obj => obj.id === updatedObj.id ? updatedObj : obj)));
+    client.listen<Route>("delete","route").subscribe(deletedObj => this.list$.next(this.list$.value.filter(obj => obj.id !== deletedObj.id)));
+    client.listen<Route>("create","route").subscribe(newObj => this.list$.next([...this.list$.value, newObj]));
   }
-
-  private createSocket(): void {
-    const ws = new WebSocket(environment.apiUrl.split("http").join("ws") + "/ws/v1");
-    ws.onmessage = ev => {
-      this.list$.next(JSON.parse(ev.data));
-    };
-    ws.onerror = ev => {
-      console.log("Websocket Error:", ev);
-    };
-    ws.onclose = ev => {
-      console.log("Websocket closed:", ev);
-      this.reconnect();
-    };
-  }
-
-  private reconnect(): void {
-    setTimeout(() => {
-      console.log("Reconnecting WebSocket");
-      this.createSocket();
-    }, 5000);
-  }
-
 }
+
+
