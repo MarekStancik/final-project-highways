@@ -4,14 +4,15 @@ import { Route } from "../models/route.model";
 import { AuthService } from "./auth.service";
 import { ObjectService } from "./object.service";
 import { UserService } from "./user.service";
+import { WsClient } from "./ws-api/ws-client";
 
 @Injectable({
   providedIn: "root"
 })
 export class RouteService extends ObjectService<Route> {
 
-  constructor(http: HttpClient,auth: AuthService) {
-    super(http,auth,"route","routes");
+  constructor(http: HttpClient,wsClient: WsClient) {
+    super(http,wsClient,"route","routes");
   }
 }
 

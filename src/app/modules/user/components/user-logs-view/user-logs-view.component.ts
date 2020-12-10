@@ -1,37 +1,36 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { AfterViewInit, Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { MatInput } from "@angular/material/input";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { DefaultTable } from "src/app/modules/components/data/default-table";
+import { UserActivityModel } from "src/app/shared/models/user.model";
+import { AuthService } from "src/app/shared/services/auth.service";
+import { ObjectService } from "src/app/shared/services/object.service";
+import { WsClient } from "src/app/shared/services/ws-api/ws-client";
 
 @Component({
   selector: 'app-user-logs-view',
   templateUrl: './user-logs-view.component.html',
   styleUrls: ['./user-logs-view.component.scss']
 })
-export class UserLogsViewComponent implements OnInit,AfterViewInit {
+export class UserLogsViewComponent extends DefaultTable<UserActivityModel,UserActivityService> {
 
-  dataSource = new MatTableDataSource<any>();
-  displayedColumns = ["startDate","ipAddress","endDate"];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatInput) filter: MatInput;
+  displayedColumns = ["date","ipAddress"];
 
-  constructor() { }
+  constructor(as: UserActivityService) { 
+    super(as)
+  }
+}
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.filter.stateChanges.subscribe(d => this.dataSource.filter = this.filter.value)
-    this.dataSource.sort = this.sort;
+@Injectable({
+  providedIn: "root"
+})
+export class UserActivityService extends ObjectService<UserActivityModel> {
+
+  constructor(http: HttpClient, wsClient: WsClient) {
+    super(http,wsClient,"user","activity")
   }
 
-  ngOnInit(): void {
-    this.dataSource.data = [
-      {
-        startDate: new Date(),
-        ipAddress: "127.0.0.1",
-        endDate: new Date(),
-      }
-    ]
-  }  
 }

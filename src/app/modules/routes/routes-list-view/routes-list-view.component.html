@@ -38,7 +38,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row" routerLinkActive #rla="routerLinkActive" [class.active]="rla.isActive"  [routerLink]="['./',row.id]"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row" routerLinkActive #rla="routerLinkActive" [class.active]="rla.isActive"  [routerLink]="['./',row._id]"></tr>
 
             <!-- Row shown when there is no matching data. -->
             <tr class="mat-row" *matNoDataRow>

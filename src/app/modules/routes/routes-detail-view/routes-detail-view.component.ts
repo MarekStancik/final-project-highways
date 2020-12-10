@@ -99,7 +99,7 @@ export class RoutesDetailViewComponent implements OnInit {
         if (mode === DetailViewMode.Create) {
           sub = this.routeService.create(this.group.value);
         } else if (mode === DetailViewMode.Edit) {
-          sub = this.routeService.update(Object.assign({ id: this.object$.value.id }, this.group.value));
+          sub = this.routeService.update(Object.assign({ _id: this.object$.value._id }, this.group.value));
         }
         sub.pipe(take(1)).subscribe({
           next: () => {

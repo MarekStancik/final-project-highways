@@ -1,41 +1,20 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from "@angular/core";
-import { MatInput } from "@angular/material/input";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { MatTableDataSource } from "@angular/material/table";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { UntilDestroy } from "@ngneat/until-destroy";
-import { untilDestroyed } from "@ngneat/until-destroy";
-import { filter, tap } from "rxjs/operators";
 import { RouteService } from "src/app/shared/services/route.service";
 import { Route, RouteStatus } from "../../../shared/models/route.model";
+import { DefaultTable } from "../../components/data/default-table";
 
-@UntilDestroy()
 @Component({
   templateUrl: "./routes-list-view.component.html",
   styleUrls: ["./routes-list-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RoutesListViewComponent implements AfterViewInit {
+export class RoutesListViewComponent extends DefaultTable<Route,RouteService> {
 
   public displayedColumns: string[] = ["route", "name", "length", "avgTime", "status"];
-  public dataSource: MatTableDataSource<Route>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatInput) filter: MatInput;
 
-  constructor(private routeService: RouteService) {
-    this.dataSource = new MatTableDataSource([]);
-    this.routeService.getAll();
-    this.routeService.list$.pipe(
-      untilDestroyed(this),
-      filter(data => !!data),
-    ).subscribe(routes => this.dataSource.data = routes);
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.filter.stateChanges.subscribe(_ => this.dataSource.filter = this.filter.value);
+  constructor(routeService: RouteService) {
+    super(routeService);
     this.dataSource.sortingDataAccessor = (item, prop) => {
       if (prop === "route") {
         return item.start;
