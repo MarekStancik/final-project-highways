@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { pascalCase } from "pascal-case";
+import { AuthService } from "src/app/shared/services/auth.service";
 import { UserService } from "src/app/shared/services/user.service";
 
 @Component({
@@ -18,7 +19,7 @@ export class UserViewComponent implements OnInit {
   
   faUser = faUser;
 
-  constructor(public user: UserService) { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit(): void {
   }

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { filter, map, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { AuthService } from "../auth.service";
 import { UserService } from "../user.service";
 import { Message } from "./dto";
 import { ActionType, EntityType, EventMessage } from "./dto/events";
@@ -11,7 +12,7 @@ export class WsClient {
     private internalReceive$: BehaviorSubject<Message> = new BehaviorSubject(null);
     private ws: WebSocket;
   
-    constructor(private http: HttpClient,private user: UserService) {
+    constructor(private http: HttpClient,private auth: AuthService) {
       this.createSocket();
     }
   
@@ -32,7 +33,7 @@ export class WsClient {
       this.ws.onopen = ev => {
        this.ws.send(JSON.stringify({
         type: "authentication.request",
-        sessionToken: this.user.sessionToken
+        sessionToken: this.auth.sessionToken
        }))
       };
   

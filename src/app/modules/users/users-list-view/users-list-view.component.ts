@@ -3,7 +3,11 @@ import { MatInput } from "@angular/material/input";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+import { filter } from "rxjs/operators";
+import { UserService } from "src/app/shared/services/user.service";
 
+@UntilDestroy()
 @Component({
   selector: 'app-users-list-view',
   templateUrl: './users-list-view.component.html',
@@ -17,7 +21,13 @@ export class UsersListViewComponent implements AfterViewInit{
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatInput) filter: MatInput;
 
-  constructor() { }
+  constructor(private userService: UserService) { 
+    this.userService.getAll();
+    this.userService.list$.pipe(
+      untilDestroyed(this),
+      filter(data => !!data),
+    ).subscribe(routes => this.dataSource.data = routes);
+  }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;

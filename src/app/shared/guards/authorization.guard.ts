@@ -12,14 +12,14 @@ import { UserService } from "../services/user.service";
 })
 export class AuthorizationGuard implements CanActivate {
 
-    constructor(private router: Router, private user: UserService) {
+    constructor(private router: Router, private auth: AuthService) {
 
     }
 
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        return this.user.authData$.pipe(
+        return this.auth.authData$.pipe(
             filter(d => !!d),
             map(d => d.permissions[route.data.entity as Auth.ResourceType].includes(route.data.detailViewMode === DetailViewMode.Edit ? "update" : "create")),
             tap(ok => {

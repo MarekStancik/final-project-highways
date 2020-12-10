@@ -1,6 +1,6 @@
 <div class="top-box">
     <fa-icon [icon]="faUser"></fa-icon>
-    <h2>{{(user.authData$ | async)?.user.username}}</h2>
+    <h2>{{(auth.authData$ | async)?.user.username}}</h2>
 </div>
 <nav mat-tab-nav-bar [color]="">
     <a mat-tab-link *ngFor="let link of links"

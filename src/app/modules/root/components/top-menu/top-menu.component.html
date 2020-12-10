@@ -3,7 +3,7 @@
 
   <div class="top-menu-user" [matMenuTriggerFor]="menu">
     <p>
-      {{pascal((user.authData$ | async)?.user.username)}}
+      {{pascal((auth.authData$ | async)?.user.username)}}
     </p>
     <fa-icon [icon]="faUser"></fa-icon>
   </div>

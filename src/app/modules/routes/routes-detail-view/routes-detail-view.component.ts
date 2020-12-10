@@ -45,7 +45,7 @@ export class RoutesDetailViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private routeService: RouteService,
-    private user: UserService
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -55,8 +55,8 @@ export class RoutesDetailViewComponent implements OnInit {
     );
 
     this.mode$ = this.route.data.pipe(map(data => data.detailViewMode || DetailViewMode.View));
-    this.canDelete$ = this.user.authData$.pipe(filter(data => !!data), map(data => data.permissions.route.includes("delete")));
-    this.canEdit$ = this.user.authData$.pipe(filter(data => !!data), map(data => data.permissions.route.includes("update")));
+    this.canDelete$ = this.auth.authData$.pipe(filter(data => !!data), map(data => data.permissions.route.includes("delete")));
+    this.canEdit$ = this.auth.authData$.pipe(filter(data => !!data), map(data => data.permissions.route.includes("update")));
 
     this.route.params
       .pipe(
