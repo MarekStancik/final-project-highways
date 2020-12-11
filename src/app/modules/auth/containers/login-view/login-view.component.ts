@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { BehaviorSubject } from "rxjs";
 import { AuthService } from "src/app/shared/services/auth.service";
 
@@ -26,8 +26,7 @@ export class LoginViewComponent {
     this.loading$.next(true);
     this.auth.login(this.loginGroup.value)
       .subscribe(
-        res => {
-    
+        () => {
         },
         err => {
           alert(err.errorMessage);

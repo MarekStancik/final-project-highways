@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { pascalCase } from "pascal-case";
 import { AuthService } from "src/app/shared/services/auth.service";
-import { UserService } from "src/app/shared/services/user.service";
 
 @Component({
-  selector: 'app-user-view',
-  templateUrl: './user-view.component.html',
-  styleUrls: ['./user-view.component.scss']
+  selector: "app-user-view",
+  templateUrl: "./user-view.component.html",
+  styleUrls: ["./user-view.component.scss"]
 })
 export class UserViewComponent implements OnInit {
 
@@ -16,7 +15,7 @@ export class UserViewComponent implements OnInit {
     "logs",
     "notifications"
   ];
-  
+
   faUser = faUser;
 
   constructor(public auth: AuthService) { }
@@ -24,7 +23,7 @@ export class UserViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public pascal(val: string) : string {
+  public pascal(val: string): string {
     return pascalCase(val);
   }
 }

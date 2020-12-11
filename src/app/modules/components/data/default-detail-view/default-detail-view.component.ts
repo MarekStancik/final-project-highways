@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { pascalCase } from "pascal-case";
-import { Observable, BehaviorSubject, combineLatest } from "rxjs";
-import { map, filter, tap, take } from "rxjs/operators";
+import { BehaviorSubject, combineLatest, Observable } from "rxjs";
+import { filter, map, take, tap } from "rxjs/operators";
 import { DatabaseObject } from "src/app/shared/models/db-object.model";
 import { DetailViewMode } from "src/app/shared/models/detail-view-mode";
 import { AuthService } from "src/app/shared/services/auth.service";
@@ -14,9 +14,9 @@ import { EntityType } from "src/app/shared/services/ws-api/dto/events";
 
 @UntilDestroy()
 @Component({
-  selector: 'app-default-detail-view',
-  templateUrl: './default-detail-view.component.html',
-  styleUrls: ['./default-detail-view.component.scss'],
+  selector: "app-default-detail-view",
+  templateUrl: "./default-detail-view.component.html",
+  styleUrls: ["./default-detail-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnInit {
@@ -24,10 +24,9 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
   @Input() public icon: IconDefinition;
   @Input() public entityType: EntityType;
   @Input() public createTitle: string;
-  @Input() public titleField: string = "title";
+  @Input() public titleField = "title";
   @Input() public group: FormGroup;
   @Input() public service: ObjectService<T>;
-  @Output() public onObjChange = new EventEmitter<T>();
   @Input() public object$: BehaviorSubject<T>;
   public isSubmitting$ = new BehaviorSubject(false);
   public mode$: Observable<DetailViewMode>;
@@ -43,7 +42,7 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
 
   ngOnInit(): void {
 
-    if(!this.titleField || !this.entityType || !this.service) {
+    if (!this.titleField || !this.entityType || !this.service) {
       throw new Error("DetailView titleField entityType and service has to be provided");
     }
 
@@ -74,8 +73,6 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
       take(1),
       tap(([_, object]) => this.group.patchValue(object))
     ).subscribe();
-
-    this.object$.pipe().subscribe(obj => this.onObjChange.emit(obj));
   }
 
   public async submit(): Promise<void> {

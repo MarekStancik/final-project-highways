@@ -2,10 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, ObservableInput, throwError } from "rxjs";
-import { catchError, map, tap } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Auth } from "../models/auth.model";
-import { UserService } from "./user.service";
 
 
 export const SESSION_TOKEN = "session-token";
@@ -21,7 +20,6 @@ export class AuthService {
     public sessionToken: string;
     public authData$: BehaviorSubject<Auth.Info> = new BehaviorSubject(null);
 
-    
     constructor(
         private http: HttpClient,
         private router: Router
@@ -81,7 +79,7 @@ export class AuthService {
                         this.redirectUrl = null;
                     });
                 }
-            }, error => {
+            }, () => {
                 this.authData$.next(null);
                 localStorage.removeItem(SESSION_TOKEN);
                 this.router.navigate(["/", "auth", "login"]);

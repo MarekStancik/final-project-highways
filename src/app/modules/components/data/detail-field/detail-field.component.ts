@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'app-detail-field',
-  templateUrl: './detail-field.component.html',
-  styleUrls: ['./detail-field.component.scss'],
+  selector: "app-detail-field",
+  templateUrl: "./detail-field.component.html",
+  styleUrls: ["./detail-field.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetailFieldComponent {

@@ -1,4 +1,4 @@
-import { MessageBaseDto } from "../common/message-base.dto"
+import { MessageBaseDto } from "../common/message-base.dto";
 
 export interface EventMessage extends MessageBaseDto {
     type: "event";

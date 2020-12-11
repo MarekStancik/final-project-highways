@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Observable } from "rxjs";
 import { filter, map, tap } from "rxjs/operators";
 import { Auth } from "../models/auth.model";
 import { DetailViewMode } from "../models/detail-view-mode";
-import { AuthService, SESSION_OBJECT, SESSION_TOKEN } from "../services/auth.service";
-import { UserService } from "../services/user.service";
+import { AuthService } from "../services/auth.service";
 
 @Injectable({
     providedIn: "root"

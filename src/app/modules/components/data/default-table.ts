@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Directive, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ViewChild } from "@angular/core";
 import { MatInput } from "@angular/material/input";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -9,15 +9,14 @@ import { DatabaseObject } from "src/app/shared/models/db-object.model";
 import { ObjectService } from "src/app/shared/services/object.service";
 
 @UntilDestroy()
-@Directive()
-export abstract class DefaultTable<T extends DatabaseObject,S extends ObjectService<T>> implements AfterViewInit {
+export abstract class DefaultTable<T extends DatabaseObject> implements AfterViewInit {
 
   public dataSource: MatTableDataSource<T>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatInput) filter: MatInput;
 
-  constructor(private service: S) {
+  constructor(private service: ObjectService<T>) {
     this.dataSource = new MatTableDataSource([]);
     this.service.getAll();
     this.service.list$.pipe(

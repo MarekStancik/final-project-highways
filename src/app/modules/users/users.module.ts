@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { UsersRoutingModule } from './users-routing.module';
-import { UsersListViewComponent } from './users-list-view/users-list-view.component';
-import { DataModule } from "../components/data/data.module";
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 import { SharedModule } from "src/app/shared/shared.module";
-import { UserDetailViewComponent } from './user-detail-view/user-detail-view.component';
+import { DataModule } from "../components/data/data.module";
+import { UserDetailViewComponent } from "./user-detail-view/user-detail-view.component";
+import { UsersListViewComponent } from "./users-list-view/users-list-view.component";
+import { UsersRoutingModule } from "./users-routing.module";
+
 
 
 @NgModule({

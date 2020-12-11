@@ -9,8 +9,8 @@ import { WsClient } from "./ws-api/ws-client";
 })
 export class RouteService extends ObjectService<Route> {
 
-  constructor(http: HttpClient,wsClient: WsClient) {
-    super(http,wsClient,"route","routes");
+  constructor(http: HttpClient, wsClient: WsClient) {
+    super(http, wsClient, "route", "routes");
   }
 }
 

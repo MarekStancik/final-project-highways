@@ -1,10 +1,9 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { UntilDestroy } from "@ngneat/until-destroy";
-import { untilDestroyed } from "@ngneat/until-destroy";
-import { filter, tap } from "rxjs/operators";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+import { filter } from "rxjs/operators";
 import { RouteService } from "src/app/shared/services/route.service";
 import { Route, RouteStatus } from "../../../shared/models/route.model";
 

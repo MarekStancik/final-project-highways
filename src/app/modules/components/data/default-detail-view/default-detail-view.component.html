@@ -2,7 +2,7 @@
     <!-- Header -->
     <app-detail-header [mode]="mode$ | async" [title]="title$ | async" createTitle="Create Route" [icon]="icon"
         [canEdit]="canEdit$ | async" [canDelete]="canDelete$ | async" [isSubmitting]="isSubmitting$ | async"
-        (onDelete)="delete()"></app-detail-header>
+        (deleteEvent)="delete()"></app-detail-header>
     <!-- Body -->
     <div class="content-wrapper">
         <!-- Form -->

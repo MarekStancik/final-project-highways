@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { RootViewComponent } from "./root-view/root-view.component";
 
 const routes: Routes = [

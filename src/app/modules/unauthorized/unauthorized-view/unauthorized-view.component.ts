@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, interval, Observable, timer } from "rxjs";
-import { filter, map, tap } from "rxjs/operators";
+import { Observable, timer } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
 @Component({
   selector: "app-unauthorized-view",

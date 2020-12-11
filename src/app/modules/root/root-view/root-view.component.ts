@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { faAccusoft } from "@fortawesome/free-brands-svg-icons";
-import { faAddressBook, faBacon, faCogs, faCubes } from "@fortawesome/free-solid-svg-icons";
-import { BehaviorSubject } from "rxjs";
+import { faAddressBook, faCogs } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   templateUrl: "./root-view.component.html",

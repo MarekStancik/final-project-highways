@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { UntilDestroy } from "@ngneat/until-destroy";
 import { RouteService } from "src/app/shared/services/route.service";
 import { Route, RouteStatus } from "../../../shared/models/route.model";
 import { DefaultTable } from "../../components/data/default-table";
@@ -9,7 +8,7 @@ import { DefaultTable } from "../../components/data/default-table";
   styleUrls: ["./routes-list-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RoutesListViewComponent extends DefaultTable<Route,RouteService> {
+export class RoutesListViewComponent extends DefaultTable<Route> {
 
   public displayedColumns: string[] = ["route", "name", "length", "avgTime", "status"];
 

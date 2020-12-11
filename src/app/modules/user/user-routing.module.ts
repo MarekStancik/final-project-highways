@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 import { UserInfoViewComponent } from "./components/user-info-view/user-info-view.component";
 import { UserLogDetailViewComponent } from "./components/user-log-detail-view/user-log-detail-view.component";
 import { UserLogsViewComponent } from "./components/user-logs-view/user-logs-view.component";

@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { NavigationEnd, Router } from "@angular/router";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { UiStateService } from "src/app/shared/services/ui-state.service";
 import { pascalCase } from "pascal-case";
+import { UiStateService } from "src/app/shared/services/ui-state.service";
 
 export interface MainMenuItem {
   name: string;
@@ -30,13 +30,13 @@ export class MainMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const activate = (url : string) => {
+    const activate = (url: string) => {
       const currentRoute = url.split("/");
       const route = currentRoute[this.routeOrder];
       const name = this.menuItems.filter((x: MainMenuItem) => x.route === route)[0]?.name || pascalCase(route);
       this.uiState.topMenuTitle$.next(name);
     };
-    
+
     activate(this.router.url);
     this.router.events.pipe(untilDestroyed(this)).subscribe(e => {
       if (e instanceof NavigationEnd) {

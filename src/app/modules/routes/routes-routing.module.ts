@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { AuthorizationGuard } from "src/app/shared/guards/authorization.guard";
 import { DetailViewMode } from "src/app/shared/models/detail-view-mode";
 import { RoutesDetailViewComponent } from "./routes-detail-view/routes-detail-view.component";
