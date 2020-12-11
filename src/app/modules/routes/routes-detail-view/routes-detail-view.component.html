@@ -1,26 +1,7 @@
 <ng-container *ngIf="mode$ | async as mode">
     <!-- Header -->
-    <div class="header-wrapper">
-        <div class="title-box">
-            <fa-icon *ngIf="icon" [icon]="icon" [fixedWidth]="true"></fa-icon>
-            <h2 *ngIf="mode === 'view' || mode === 'edit'">{{ (title$ | async) || "-" }}</h2>
-            <h2 *ngIf="mode === 'create'">{{ createTitle || "-" }}</h2>
-        </div>
-        <div class="control-box">
-            <a *ngIf="mode === 'view' && canDelete$ | async" class="control" (click)="delete()">
-                <fa-icon [icon]="faTrash" [fixedWidth]="true"></fa-icon>
-            </a>
-            <a *ngIf="mode === 'view' && canEdit$ | async" class="control" [routerLink]="['edit']">
-                <fa-icon [icon]="faPencil" [fixedWidth]="true"></fa-icon>
-            </a>
-            <a *ngIf="mode === 'edit'" class="control" [class.disabled]="isSubmitting$ | async" [routerLink]="['..']">
-                <fa-icon [icon]="faArrow" [fixedWidth]="true"></fa-icon>
-            </a>
-            <a class="control" [class.disabled]="isSubmitting$ | async" [routerLink]="['..']">
-                <fa-icon [icon]="faTimes" [fixedWidth]="true"></fa-icon>
-            </a>
-        </div>
-    </div>
+    <app-detail-header [mode]="mode$ | async" [title]="title$ | async" createTitle="Create Route" [icon]="icon" [canEdit]="canEdit$ | async" [canDelete]="canDelete$ | async"
+        [isSubmitting]="isSubmitting$ | async" (onDelete)="delete()"></app-detail-header>
     <!-- Body -->
     <div class="content-wrapper">
         <!-- Form -->
@@ -64,26 +45,11 @@
         <!-- View -->
         <ng-template #view>
             <ng-container *ngIf="object$ | async as object">
-                <div class="detail-record">
-                    <h2>Start Point</h2>
-                    <span>{{object.start || "-"}}</span>
-                </div>
-                <div class="detail-record">
-                    <h2>End Point</h2>
-                    <span>{{object.end || "-"}}</span>
-                </div>
-                <div class="detail-record">
-                    <h2>Name</h2>
-                    <span>{{object.name || "-"}}</span>
-                </div>
-                <div class="detail-record">
-                    <h2>Length</h2>
-                    <span>{{object.length || "-"}}</span>
-                </div>
-                <div class="detail-record">
-                    <h2>Avg Time</h2>
-                    <span>{{object.avgTime || "-"}}</span>
-                </div>
+                <app-detail-field name="Start Point" [value]="object.start"></app-detail-field>
+                <app-detail-field name="End Point" [value]="object.end"></app-detail-field>
+                <app-detail-field name="Name" [value]="object.name"></app-detail-field>
+                <app-detail-field name="Length" [value]="object.length"></app-detail-field>
+                <app-detail-field name="Avg Time" [value]="object.avgTime"></app-detail-field>
                 <!-- <mat-tab-group>
                     <mat-tab label="Devices"> Devices </mat-tab>
                     <mat-tab label="History"> History </mat-tab>

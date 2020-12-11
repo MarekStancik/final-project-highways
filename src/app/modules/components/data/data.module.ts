@@ -8,18 +8,26 @@ import { MatInputModule } from "@angular/material/input";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
+import { DetailHeaderComponent } from './detail-header/detail-header.component';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { DetailFieldComponent } from './detail-field/detail-field.component';
+import { SharedModule } from "src/app/shared/shared.module";
 
 
 
 @NgModule({
-  declarations: [DefaultDetailViewComponent,DefaultListViewComponent],
+  declarations: [DefaultDetailViewComponent,DefaultListViewComponent, DetailHeaderComponent, DetailFieldComponent],
   imports: [
     CommonModule,
     RouterModule,
-    MatSidenavModule
+    MatSidenavModule,
+    SharedModule,
+    FontAwesomeModule
   ],
   exports: [
     DefaultListViewComponent,
+    DetailHeaderComponent,
+    DetailFieldComponent,
     MatTableModule,
     MatInputModule,
     MatPaginatorModule,

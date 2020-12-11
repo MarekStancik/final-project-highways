@@ -1,11 +1,18 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { UserDetailViewComponent } from "./user-detail-view/user-detail-view.component";
 import { UsersListViewComponent } from "./users-list-view/users-list-view.component";
 
 const routes: Routes = [
   {
     path: "",
-    component: UsersListViewComponent
+    component: UsersListViewComponent,
+    children: [
+      {
+        path: ":id",
+        component: UserDetailViewComponent
+      }
+    ]
   }
 ];
 

@@ -23,13 +23,12 @@ export class RoutesDetailViewComponent implements OnInit {
   public canEdit$: Observable<boolean>;
   public isSubmitting$ = new BehaviorSubject(false);
   public mode$: Observable<DetailViewMode>;
-  public createTitle = "Create Route";
   public title$ = new BehaviorSubject("Route");
   public icon = faBacon;
-  public faTrash = faTrash;
-  public faPencil = faPencilAlt;
-  public faArrow = faArrowLeft;
-  public faTimes = faTimes;
+  // public faTrash = faTrash;
+  // public faPencil = faPencilAlt;
+  // public faArrow = faArrowLeft;
+  // public faTimes = faTimes;
 
   public group = new FormGroup({
     start: new FormControl(""),

@@ -1,0 +1,22 @@
+<!-- Header -->
+<div class="header-wrapper">
+    <div class="title-box">
+        <fa-icon *ngIf="icon" [icon]="icon" [fixedWidth]="true"></fa-icon>
+        <h2 *ngIf="mode === 'view' || mode === 'edit'">{{ title }}</h2>
+        <h2 *ngIf="mode === 'create'">{{ createTitle }}</h2>
+    </div>
+    <div class="control-box">
+        <a *ngIf="mode === 'view' && canDelete" class="control" (click)="delete()">
+            <fa-icon [icon]="faTrash" [fixedWidth]="true"></fa-icon>
+        </a>
+        <a *ngIf="mode === 'view' && canEdit" class="control" [routerLink]="['edit']">
+            <fa-icon [icon]="faPencil" [fixedWidth]="true"></fa-icon>
+        </a>
+        <a *ngIf="mode === 'edit'" class="control" [class.disabled]="isSubmitting" [routerLink]="['..']">
+            <fa-icon [icon]="faArrow" [fixedWidth]="true"></fa-icon>
+        </a>
+        <a class="control" [class.disabled]="isSubmitting" [routerLink]="['..']">
+            <fa-icon [icon]="faTimes" [fixedWidth]="true"></fa-icon>
+        </a>
+    </div>
+</div>

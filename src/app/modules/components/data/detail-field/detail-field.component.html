@@ -1,0 +1,7 @@
+<div class="detail-record">
+    <h2>{{ name }}</h2>
+    <ng-container [ngSwitch]="format">
+        <span *ngSwitchCase="'date'">{{ value ? (value | date:"yyyy-MM-dd HH:mm:ss") : "-" }}</span>
+        <span *ngSwitchDefault>{{ value }}</span>
+    </ng-container>
+</div>

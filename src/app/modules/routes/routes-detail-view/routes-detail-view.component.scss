@@ -5,75 +5,6 @@
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-
-    .header-wrapper {
-        flex: 0 0 auto;
-        display: flex;
-        flex-direction: row;
-        padding: 0.5rem 0rem 0.5rem 0rem;
-        box-shadow: 0px 3px 3px $color-black;
-    }
-
-    .control-box {
-        flex: 0 0 auto;
-        display: flex;
-        
-        > .control {
-            flex: 0 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            margin: 0rem 0.5rem 0rem 0rem;
-            border-radius: .8rem;
-            transition: opacity 300ms ease-in-out;
-            cursor: pointer;
-
-            &:hover {
-                background-color: $color-light-blue;
-            }
-
-            &.disabled {
-                pointer-events: none;
-                opacity: .3;
-            }
-
-            > fa-icon {
-                font-size: 21px;
-                margin-right: 0 !important;
-            }
-
-            > span {
-                font-size: 1rem;
-                margin-left: 0.5rem;
-            }
-
-            > fa-icon, > span {
-                color: $color-black;
-            }
-        }
-    }
-    
-    .title-box {
-        flex: 1 1 auto;
-        display: flex;
-        align-items: center;
-        color: $color-black;
-        padding: 0rem 1rem;
-    
-        > fa-icon, fa-duotone-icon {
-            margin-right: 0.5rem;
-            font-size: 36px;
-        }
-    
-        > h2 {
-            font-size: 1.6rem;
-            font-weight: 200;
-            margin: 0 0 0 0;
-        }
-    }
-
     .content-wrapper{
         display: flex;
         flex-direction: column;
@@ -84,18 +15,6 @@
             margin: 15px 10px;
             mat-form-field{
                 width: 100%;
-            }
-        }
-
-        .detail-record{
-            color: $color-black;
-            border-left: 5px solid $color-black;
-            padding: 0px 0px 5px 15px;
-            box-shadow: 0px 1px 3px $color-black;
-            margin-bottom: 10px;
-
-            span{
-                font-size: large;
             }
         }
     }

@@ -1,0 +1,15 @@
+@import "~/src/styles/variables";
+
+:host{
+    .detail-record{
+        color: $color-black;
+        border-left: 5px solid $color-black;
+        padding: 0px 0px 5px 15px;
+        box-shadow: 0px 1px 3px $color-black;
+        margin-bottom: 10px;
+
+        span{
+            font-size: large;
+        }
+    }
+}
