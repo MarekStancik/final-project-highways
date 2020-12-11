@@ -7,19 +7,11 @@
     <div class="content-wrapper">
         <!-- Form -->
         <ng-container *ngIf="mode === 'create' || mode === 'edit'; else view">
-            <form [formGroup]="group" (ngSubmit)="submit()">
                 <ng-content select="[formView]"></ng-content>
-
-                <!-- Bottom Buttons -->
-                <button type="submit" mat-button>Save</button>
-                <button mat-button type="button" (click)="group.patchValue(object$.value)">Discard</button>
-            </form>
         </ng-container>
         <!-- View -->
         <ng-template #view>
-            <ng-container *ngIf="object$ | async as object">
-                <ng-content select="[showView]"></ng-content>
-            </ng-container>
+            <ng-content select="[showView]"></ng-content>
         </ng-template>
     </div>
 </ng-container>

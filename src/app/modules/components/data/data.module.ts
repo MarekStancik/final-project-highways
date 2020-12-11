@@ -25,6 +25,7 @@ import { SharedModule } from "src/app/shared/shared.module";
     FontAwesomeModule
   ],
   exports: [
+    DefaultDetailViewComponent,
     DefaultListViewComponent,
     DetailHeaderComponent,
     DetailFieldComponent,

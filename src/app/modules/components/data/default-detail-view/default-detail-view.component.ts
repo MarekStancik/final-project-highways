@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
@@ -26,8 +26,9 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
   @Input() public createTitle: string;
   @Input() public titleField: string = "title";
   @Input() public group: FormGroup;
-
-  public object$ = new BehaviorSubject<T>(null);
+  @Input() public service: ObjectService<T>;
+  @Output() public onObjChange = new EventEmitter<T>();
+  @Input() public object$: BehaviorSubject<T>;
   public isSubmitting$ = new BehaviorSubject(false);
   public mode$: Observable<DetailViewMode>;
   public title$ = new BehaviorSubject("Route");
@@ -37,13 +38,14 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private objectService: ObjectService<T>,
     private auth: AuthService
   ) { }
 
   ngOnInit(): void {
 
-    if(!this.titleField || !this.entityType)
+    if(!this.titleField || !this.entityType || !this.service) {
+      throw new Error("DetailView titleField entityType and service has to be provided");
+    }
 
     this.mode$ = this.route.data.pipe(map(data => data.detailViewMode || DetailViewMode.View));
     this.canDelete$ = this.auth.authData$.pipe(filter(data => !!data), map(data => data.permissions[this.entityType].includes("delete")));
@@ -55,7 +57,7 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
         filter(params => !!params.id),
         map(params => params.id),
         tap(id => {
-          this.objectService.get(id)
+          this.service.get(id)
             .pipe(
               untilDestroyed(this),
               filter(d => !!d),
@@ -72,6 +74,8 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
       take(1),
       tap(([_, object]) => this.group.patchValue(object))
     ).subscribe();
+
+    this.object$.pipe().subscribe(obj => this.onObjChange.emit(obj));
   }
 
   public async submit(): Promise<void> {
@@ -82,9 +86,9 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
         this.isSubmitting$.next(true);
         let sub: Observable<T> = null;
         if (mode === DetailViewMode.Create) {
-          sub = this.objectService.create(this.group.value);
+          sub = this.service.create(this.group.value);
         } else if (mode === DetailViewMode.Edit) {
-          sub = this.objectService.update(Object.assign({ _id: this.object$.value._id }, this.group.value));
+          sub = this.service.update(Object.assign({ _id: this.object$.value._id }, this.group.value));
         }
         sub.pipe(take(1)).subscribe({
           next: () => {
@@ -103,7 +107,7 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
   public async delete(): Promise<void> {
     try {
       if (confirm(`Confirm Deletion of ${this.entityType} '${(this.object$.value as any)[this.titleField]}'`)) {
-        await this.objectService.delete(this.object$.value).toPromise();
+        await this.service.delete(this.object$.value).toPromise();
         this.router.navigate(["../"], { relativeTo: this.route });
       }
     } catch (err) {

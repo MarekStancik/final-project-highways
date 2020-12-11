@@ -1,61 +1,50 @@
-<ng-container *ngIf="mode$ | async as mode">
-    <!-- Header -->
-    <app-detail-header [mode]="mode$ | async" [title]="title$ | async" createTitle="Create Route" [icon]="icon" [canEdit]="canEdit$ | async" [canDelete]="canDelete$ | async"
-        [isSubmitting]="isSubmitting$ | async" (onDelete)="delete()"></app-detail-header>
-    <!-- Body -->
-    <div class="content-wrapper">
-        <!-- Form -->
-        <ng-container *ngIf="mode === 'create' || mode === 'edit'; else view">
-            <form [formGroup]="group" (ngSubmit)="submit()">
-                <!-- Start Control  -->
-                <mat-form-field appearance="outline">
-                    <input type="text" placeholder="Start Point" formControlName="start" [matAutocomplete]="auto"
-                        matInput>
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-                            {{option}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-                <!-- End Control -->
-                <mat-form-field appearance="outline">
-                    <input type="text" placeholder="End Point" formControlName="end" [matAutocomplete]="auto" matInput>
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-                            {{option}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-                <!-- Name -->
-                <mat-form-field appearance="outline">
-                    <mat-label>Name</mat-label>
-                    <input matInput type="text" formControlName="name">
-                </mat-form-field>
-                <!-- Length -->
-                <mat-form-field appearance="outline">
-                    <mat-label>Length</mat-label>
-                    <input matInput type="number" formControlName="length">
-                </mat-form-field>
+<app-default-detail-view titleField="name" createTitle="Create Route" [icon]="icon" [group]="group" entityType="route" [service]="routeService" [object$]="object$">
+    <form [formGroup]="group" (ngSubmit)="child.submit()" formView>
+        <!-- Start Control  -->
+        <mat-form-field appearance="outline">
+            <input type="text" placeholder="Start Point" formControlName="start" [matAutocomplete]="auto"
+                matInput>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <!-- End Control -->
+        <mat-form-field appearance="outline">
+            <input type="text" placeholder="End Point" formControlName="end" [matAutocomplete]="auto" matInput>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <!-- Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name">
+        </mat-form-field>
+        <!-- Length -->
+        <mat-form-field appearance="outline">
+            <mat-label>Length</mat-label>
+            <input matInput type="number" formControlName="length">
+        </mat-form-field>
 
-                <!-- Bottom Buttons -->
-                <button type="submit" mat-button>Save</button>
-                <button mat-button type="button" (click)="group.patchValue(object$.value)">Discard</button>
-            </form>
-        </ng-container>
-        <!-- View -->
-        <ng-template #view>
-            <ng-container *ngIf="object$ | async as object">
-                <app-detail-field name="Start Point" [value]="object.start"></app-detail-field>
-                <app-detail-field name="End Point" [value]="object.end"></app-detail-field>
-                <app-detail-field name="Name" [value]="object.name"></app-detail-field>
-                <app-detail-field name="Length" [value]="object.length"></app-detail-field>
-                <app-detail-field name="Avg Time" [value]="object.avgTime"></app-detail-field>
-                <!-- <mat-tab-group>
-                    <mat-tab label="Devices"> Devices </mat-tab>
-                    <mat-tab label="History"> History </mat-tab>
-                    <mat-tab label="Graphs"> Graphs </mat-tab>
-                </mat-tab-group> -->
-            </ng-container>
-        </ng-template>
-    </div>
-</ng-container>
+        <!-- Bottom Buttons -->
+        <button type="submit" mat-button>Save</button>
+        <button mat-button type="button" (click)="group.patchValue(object$.value)">Discard</button>
+    </form>
+
+    <ng-container *ngIf="object$ | async as obj" showView>
+            <app-detail-field name="Start Point" [value]="obj.start"></app-detail-field>
+            <app-detail-field name="End Point" [value]="obj.end"></app-detail-field>
+            <app-detail-field name="Name" [value]="obj.name"></app-detail-field>
+            <app-detail-field name="Length" [value]="obj.length"></app-detail-field>
+            <app-detail-field name="Avg Time" [value]="obj.avgTime"></app-detail-field>
+        <!-- <mat-tab-group>
+            <mat-tab label="Devices"> Devices </mat-tab>
+            <mat-tab label="History"> History </mat-tab>
+            <mat-tab label="Graphs"> Graphs </mat-tab>
+        </mat-tab-group> -->
+    </ng-container>
+</app-default-detail-view>
