@@ -1,4 +1,4 @@
-import { AfterViewInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Directive, ViewChild } from "@angular/core";
 import { MatInput } from "@angular/material/input";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -9,6 +9,7 @@ import { DatabaseObject } from "src/app/shared/models/db-object.model";
 import { ObjectService } from "src/app/shared/services/object.service";
 
 @UntilDestroy()
+@Directive()
 export abstract class DefaultTable<T extends DatabaseObject> implements AfterViewInit {
 
   public dataSource: MatTableDataSource<T>;

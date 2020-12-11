@@ -8,17 +8,24 @@ import { WsClient } from "./ws-api/ws-client";
 
 export class ObjectService<T extends DatabaseObject> {
 
-  public list$: BehaviorSubject<T[]> = new BehaviorSubject(null);
+  public list$: BehaviorSubject<T[]> = new BehaviorSubject([]);
 
   public get(id: string): Observable<T> {
     return this.list$.pipe(
       filter(d => !!d),
-      map(d => d.find(p => p._id === id))
+      map(d => d.find(p => p.id === id))
     );
   }
 
   public getAll(): void {
-    this.http.get<T[]>(`${environment.apiUrl}/v1/${this.path}`).subscribe(l => this.list$.next(l));
+    this.http.get<T[]>(`${environment.apiUrl}/v1/${this.path}`)
+    .subscribe({
+      next: l => this.list$.next(l), 
+      error: err => {
+        console.log(err);
+        this.list$.next([]);
+      }
+    });
   }
 
   public create(obj: T): Observable<T> {
@@ -26,16 +33,16 @@ export class ObjectService<T extends DatabaseObject> {
   }
 
   public update(obj: T): Observable<T> {
-    return this.http.put<T>(`${environment.apiUrl}/v1/${this.path}/${obj._id}`, obj);
+    return this.http.put<T>(`${environment.apiUrl}/v1/${this.path}/${obj.id}`, obj);
   }
 
   public delete(obj: T): Observable<T> {
-    return this.http.delete<T>(`${environment.apiUrl}/v1/${this.path}/${obj._id}`);
+    return this.http.delete<T>(`${environment.apiUrl}/v1/${this.path}/${obj.id}`);
   }
 
   constructor(private http: HttpClient, client: WsClient, entityType: EntityType, private path: string) {
-    client.listen<T>("update", entityType).subscribe(updatedObj => this.list$.next(this.list$.value.map(obj => obj._id === updatedObj._id ? updatedObj : obj)));
-    client.listen<T>("delete", entityType).subscribe(deletedObj => this.list$.next(this.list$.value.filter(obj => obj._id !== deletedObj._id)));
+    client.listen<T>("update", entityType).subscribe(updatedObj => this.list$.next(this.list$.value.map(obj => obj.id === updatedObj.id ? updatedObj : obj)));
+    client.listen<T>("delete", entityType).subscribe(deletedObj => this.list$.next(this.list$.value.filter(obj => obj.id !== deletedObj.id)));
     client.listen<T>("create", entityType).subscribe(newObj => this.list$.next([...this.list$.value, newObj]));
   }
 }

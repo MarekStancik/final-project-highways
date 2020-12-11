@@ -1,2 +1,41 @@
-<!-- Header -->
-pica
+<app-default-detail-view titleField="username" createTitle="Create User" [icon]="icon" [group]="group" entityType="user" [service]="userService" [object$]="object$">
+    <form [formGroup]="group" (ngSubmit)="child.submit()" formView>       
+        <!-- Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="username">
+        </mat-form-field>
+        <!-- Mail -->
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+        </mat-form-field>
+        <!-- Pass -->
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+        </mat-form-field>
+
+        <!-- End Control -->
+        <mat-form-field appearance="outline">
+            <mat-label>Role</mat-label>
+            <mat-select autoActiveFirstOption formControlName="authorization">
+                <mat-option *ngFor="let role of roles" [value]="role">
+                    {{role}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Bottom Buttons -->
+        <button type="submit" mat-button>Save</button>
+        <button mat-button type="button" (click)="group.patchValue(object$.value)">Discard</button>
+    </form>
+
+    <ng-container *ngIf="object$ | async as obj" showView>
+            <app-detail-field name="Name" [value]="obj.username"></app-detail-field>
+            <app-detail-field name="Email" [value]="obj.email"></app-detail-field>
+            <app-detail-field name="Last Activity" [value]="obj.lastActivity"></app-detail-field>
+            <app-detail-field name="Role" [value]="obj.authorization"></app-detail-field>
+            <app-detail-field name="Enabled" [value]="obj.enabled"></app-detail-field>
+    </ng-container>
+</app-default-detail-view>

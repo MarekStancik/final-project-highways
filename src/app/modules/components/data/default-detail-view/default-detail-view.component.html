@@ -1,6 +1,6 @@
 <ng-container *ngIf="mode$ | async as mode">
     <!-- Header -->
-    <app-detail-header [mode]="mode$ | async" [title]="title$ | async" createTitle="Create Route" [icon]="icon"
+    <app-detail-header [mode]="mode$ | async" [title]="title$ | async" [createTitle]="createTitle" [icon]="icon"
         [canEdit]="canEdit$ | async" [canDelete]="canDelete$ | async" [isSubmitting]="isSubmitting$ | async"
         (deleteEvent)="delete()"></app-detail-header>
     <!-- Body -->

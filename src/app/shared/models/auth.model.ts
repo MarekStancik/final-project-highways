@@ -1,3 +1,4 @@
+// tslint:disable-next-line: no-namespace
 export namespace Auth {
 
     export interface Request {
@@ -18,8 +19,10 @@ export namespace Auth {
 
     export type Permissions = Record<ResourceType, OperationType[]>;
 
+    export type AuthorizationType = "admin" | "user" | "manager";
+
     export interface Info {
-        permissions:  Permissions;
+        permissions: Permissions;
         user: any;
-    }    
+    }
 }

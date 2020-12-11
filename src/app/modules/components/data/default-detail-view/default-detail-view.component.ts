@@ -85,7 +85,7 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
         if (mode === DetailViewMode.Create) {
           sub = this.service.create(this.group.value);
         } else if (mode === DetailViewMode.Edit) {
-          sub = this.service.update(Object.assign({ _id: this.object$.value._id }, this.group.value));
+          sub = this.service.update(Object.assign({ id: this.object$.value.id }, this.group.value));
         }
         sub.pipe(take(1)).subscribe({
           next: () => {

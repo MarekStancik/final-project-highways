@@ -11,7 +11,7 @@ import { DefaultTable } from "../../components/data/default-table";
 })
 export class UsersListViewComponent extends DefaultTable<UserModel>{
 
-  displayedColumns = ["username", "lastActivity", "enabled"];
+  displayedColumns = ["username", "lastActivity", "email", "role", "enabled"];
 
   constructor(userService: UserService) {
     super(userService);

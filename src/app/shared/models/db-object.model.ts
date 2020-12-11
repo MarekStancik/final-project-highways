@@ -1,3 +1,3 @@
 export class DatabaseObject {
-    _id: string;
+    id: string;
 }
