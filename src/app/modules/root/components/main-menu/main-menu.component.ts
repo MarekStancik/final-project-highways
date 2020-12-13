@@ -3,13 +3,14 @@ import { NavigationEnd, Router } from "@angular/router";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { pascalCase } from "pascal-case";
+import { Observable } from "rxjs";
 import { UiStateService } from "src/app/shared/services/ui-state.service";
 
 export interface MainMenuItem {
   name: string;
   icon: IconProp;
   route?: string;
-  routes?: MainMenuItem[];
+  canActivate$: Observable<boolean>;
 }
 
 @UntilDestroy()

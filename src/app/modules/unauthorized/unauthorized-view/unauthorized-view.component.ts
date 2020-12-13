@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, timer } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
 @Component({
-  selector: "app-unauthorized-view",
   templateUrl: "./unauthorized-view.component.html",
-  styleUrls: ["./unauthorized-view.component.scss"]
+  styleUrls: ["./unauthorized-view.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UnauthorizedViewComponent implements OnInit {
 

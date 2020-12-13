@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ViewChild } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { faArrowsAlt, faBacon } from "@fortawesome/free-solid-svg-icons";
 import { BehaviorSubject } from "rxjs";
@@ -8,7 +8,7 @@ import { DefaultDetailViewComponent } from "../../components/data/default-detail
 
 @Component({
   templateUrl: "./node-detail-view.component.html",
-  styleUrls: ["./node-detail-view.component.scss"]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NodeDetailViewComponent {
 
@@ -25,6 +25,9 @@ export class NodeDetailViewComponent {
   });
   public object$ = new BehaviorSubject<NodeModel>(null);
 
-
   constructor(public nodeService: NodeService) { }
+
+  public getLink(location: { longitude: string; latitude: string }): string {
+    return location ? `https://maps.google.com/?ll=${location.latitude},${location.longitude}` : "";
+  }
 }

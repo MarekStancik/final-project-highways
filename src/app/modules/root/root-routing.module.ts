@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AuthorizationGuard } from "src/app/shared/guards/authorization.guard";
 import { RootViewComponent } from "./root-view/root-view.component";
 
 const routes: Routes = [
@@ -14,11 +15,19 @@ const routes: Routes = [
       },
       {
         path: "routes",
-        loadChildren: () => import("../routes/routes.module").then(m => m.RoutesModule)
+        canActivate: [AuthorizationGuard],
+        loadChildren: () => import("../routes/routes.module").then(m => m.RoutesModule),
+        data: {
+          entity: "route"
+        }
       },
       {
         path: "users",
-        loadChildren: () => import("../users/users.module").then(m => m.UsersModule)
+        canActivate: [AuthorizationGuard],
+        loadChildren: () => import("../users/users.module").then(m => m.UsersModule),
+        data: {
+          entity: "user"
+        }
       },
       {
         path: "system",

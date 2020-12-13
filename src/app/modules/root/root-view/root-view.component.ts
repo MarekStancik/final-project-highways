@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { faAccusoft } from "@fortawesome/free-brands-svg-icons";
 import { faAddressBook, faCogs } from "@fortawesome/free-solid-svg-icons";
+import { filter, map } from "rxjs/operators";
+import { AuthService } from "src/app/shared/services/auth.service";
+import { MainMenuItem } from "../components/main-menu/main-menu.component";
 
 @Component({
   templateUrl: "./root-view.component.html",
@@ -9,25 +12,28 @@ import { faAddressBook, faCogs } from "@fortawesome/free-solid-svg-icons";
 })
 export class RootViewComponent implements OnInit {
 
-  menuItems: any = [
+  menuItems: MainMenuItem[] = [
     {
       name: "Dashboard",
       icon: faAccusoft,
-      route: "routes"
+      route: "routes",
+      canActivate$: this.auth.authData$.pipe(filter(d => !!d), map(d => d.permissions?.route?.includes("read")))
     },
     {
       name: "Users",
       icon: faAddressBook,
-      route: "users"
+      route: "users",
+      canActivate$: this.auth.authData$.pipe(filter(d => !!d), map(d => d.permissions?.user?.includes("read")))
     },
     {
       name: "Settings",
       icon: faCogs,
-      route: "system"
+      route: "system",
+      canActivate$: this.auth.authData$.pipe(filter(d => !!d), map(d => d.permissions?.device?.includes("read") || d.permissions?.node?.includes("read")))
     },
   ];
 
-  constructor() {
+  constructor(private auth: AuthService) {
   }
 
   ngOnInit(): void {

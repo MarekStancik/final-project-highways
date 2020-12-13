@@ -1,12 +1,12 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { NodeModel } from "src/app/shared/models/node.model";
 import { NodeService } from "src/app/shared/services/node.service";
 import { DefaultTableDirective } from "../../components/data/default-table";
 
 @Component({
-  selector: "app-node-list-view",
   templateUrl: "./node-list-view.component.html",
-  styleUrls: ["./node-list-view.component.scss"]
+  styleUrls: ["./node-list-view.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NodeListViewComponent extends DefaultTableDirective<NodeModel> {
   displayedColumns = ["name", "location"];

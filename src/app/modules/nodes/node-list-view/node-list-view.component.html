@@ -26,19 +26,11 @@
                 <td *ngIf="dataSource.filter; else noData" class="mat-cell" colspan="2">No data matching the filter
                     "{{input.value}}"</td>
                 <ng-template #noData>
-                    <td class="mat-cell" colspan="5">There is no data available</td>
+                    <td class="mat-cell" colspan="2">There is no data available</td>
                 </ng-template>
             </tr>
         </table>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"></mat-paginator>
-
-        <div class="button-bar-bottom">
-            <div class="body">
-                <button mat-fab color="red" [routerLink]="['./create']">
-                    <fa-icon [icon]="['fas', 'plus']" [fixedWidth]="true"></fa-icon>
-                </button>
-            </div>
-        </div>
     </div>
 </app-default-list-view>

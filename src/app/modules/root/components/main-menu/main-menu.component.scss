@@ -24,7 +24,12 @@
                 color: white;
             }
 
-            &:not(.selected):hover {
+            &.disabled {
+                background-color: $color-black;
+                cursor: default;
+            }
+
+            &:not(.selected,.disabled):hover {
                 background: white;
             }
 

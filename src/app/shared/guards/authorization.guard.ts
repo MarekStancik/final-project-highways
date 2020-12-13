@@ -18,9 +18,11 @@ export class AuthorizationGuard implements CanActivate {
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+        const mode = route.data.detailViewMode;
+        const operation: Auth.OperationType = mode ? mode === DetailViewMode.Edit ? "update" : "create" : "read";
         return this.auth.authData$.pipe(
             filter(d => !!d),
-            map(d => d.permissions[route.data.entity as Auth.ResourceType].includes(route.data.detailViewMode === DetailViewMode.Edit ? "update" : "create")),
+            map(d => d.permissions[route.data.entity as Auth.ResourceType].includes(operation)),
             tap(ok => {
                 if (!ok) {
                     this.router.navigate(["/", "unauthorized"]);

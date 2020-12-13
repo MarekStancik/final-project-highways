@@ -29,6 +29,7 @@
         <!-- Bottom Buttons -->
         <button type="submit" mat-button>Save</button>
         <button mat-button type="button" (click)="group.patchValue(object$.value)">Discard</button>
+        <button *ngIf="object$ | async" mat-button type="button" (click)="changeEnabled()">{{object$.value.enabled ? 'Disable' : 'Enable'}}</button>
     </form>
 
     <ng-container *ngIf="object$ | async as obj" showView>

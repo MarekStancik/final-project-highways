@@ -2,7 +2,8 @@
     <div class="item"
          *ngFor="let item of menuItems"
          [routerLink]="[item.route]" routerLinkActive #rla="routerLinkActive"
-         [class.selected]="rla.isActive">
+         [class.selected]="rla.isActive"
+         [class.disabled]="!(item.canActivate$ | async)">
          <fa-icon [icon]="item.icon"></fa-icon>
     </div>
   </div>

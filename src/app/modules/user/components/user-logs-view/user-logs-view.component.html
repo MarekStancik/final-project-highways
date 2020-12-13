@@ -27,7 +27,7 @@
                 <td *ngIf="dataSource.filter; else noData" class="mat-cell" colspan="2">No data matching the filter
                     "{{input.value}}"</td>
                 <ng-template #noData>
-                    <td class="mat-cell" colspan="3">There is no data available</td>
+                    <td class="mat-cell" colspan="2">There is no data available</td>
                 </ng-template>
             </tr>
         </table>

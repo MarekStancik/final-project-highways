@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { pascalCase } from "pascal-case";
 import { AuthService } from "src/app/shared/services/auth.service";
@@ -8,7 +8,8 @@ import { UserService } from "src/app/shared/services/user.service";
 @Component({
   selector: "app-top-menu",
   templateUrl: "./top-menu.component.html",
-  styleUrls: ["./top-menu.component.scss"]
+  styleUrls: ["./top-menu.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopMenuComponent implements OnInit {
 

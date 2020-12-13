@@ -11,7 +11,7 @@ import { DefaultDetailViewComponent } from "../../components/data/default-detail
   templateUrl: "./user-detail-view.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserDetailViewComponent implements OnInit {
+export class UserDetailViewComponent {
 
   @ViewChild(DefaultDetailViewComponent) child: DefaultDetailViewComponent<UserModel>;
 
@@ -28,7 +28,10 @@ export class UserDetailViewComponent implements OnInit {
 
   constructor(public userService: UserService) { }
 
-  ngOnInit(): void {
+  public changeEnabled(): void {
+    const current = this.object$.value;
+    this.group.patchValue(Object.assign({}, current, { enabled: !current.enabled }));
+    this.child.submit();
   }
 
 }

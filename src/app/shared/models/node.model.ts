@@ -1,4 +1,5 @@
 import { DatabaseObject } from "./db-object.model";
+import { DeviceModel } from "./device.model";
 
 export class NodeModel extends DatabaseObject{
     name: string;
@@ -6,5 +7,5 @@ export class NodeModel extends DatabaseObject{
         longitude: string;
         latitude: string;
     };
-    devices: any[];
+    devices: DeviceModel[];
 }
