@@ -10,4 +10,4 @@ export interface EventMessage extends MessageBaseDto {
 
 export type ActionType = "update" | "create" | "delete";
 
-export type EntityType = "user" | "route";
+export type EntityType = "user" | "route" | "node";

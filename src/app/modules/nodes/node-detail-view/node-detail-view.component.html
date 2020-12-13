@@ -1,0 +1,32 @@
+<app-default-detail-view titleField="name" createTitle="Create Node" [icon]="icon" [group]="group" entityType="node" [service]="nodeService" [object$]="object$">
+    <form [formGroup]="group" (ngSubmit)="child.submit()" formView>
+        <!-- Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name">
+        </mat-form-field>
+        
+        <ng-container formGroupName="location">
+            <mat-form-field appearance="outline">
+                <mat-label>Longitude</mat-label>
+                <input matInput type="text" formControlName="longitude">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Latitude</mat-label>
+                <input matInput type="text" formControlName="latitude">
+            </mat-form-field>
+        </ng-container>
+        
+
+        <!-- Bottom Buttons -->
+        <button type="submit" mat-button>Save</button>
+        <button mat-button type="button" (click)="group.patchValue(object$.value)">Discard</button>
+    </form>
+
+    <ng-container *ngIf="object$ | async as obj" showView>
+            <app-detail-field name="Name" [value]="obj.name"></app-detail-field>
+            <app-detail-field name="Name" [value]="'Latitude: ' + (obj.location?.latitude || '-') + 'Longitude: ' + (obj.location?.longitude || '-')"></app-detail-field>
+            <span>Devices</span>
+    </ng-container>
+</app-default-detail-view>

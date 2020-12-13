@@ -13,7 +13,7 @@ export namespace Auth {
         user: any;
     }
 
-    export type ResourceType = "user" | "route";
+    export type ResourceType = "user" | "route" | "node";
 
     export type OperationType = "create" | "read" | "update" | "delete";
 

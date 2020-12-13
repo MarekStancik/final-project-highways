@@ -1,1 +1,6 @@
-<p>Work In Progress</p>
+<div class="menu-box">
+    <span class="menu-item" *ngFor="let item of menuItems" [routerLink]="[item.path]" routerLinkActive #rla="routerLinkActive" [class.selected]="rla.isActive">
+        {{item.name}}
+    </span>
+</div>
+<router-outlet></router-outlet>

@@ -27,6 +27,10 @@
             &:not(.selected):hover {
                 background: white;
             }
+
+            &:focus{
+                outline: none;
+            }
         }
     }
 }

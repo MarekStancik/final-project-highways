@@ -8,7 +8,11 @@ import { WsClient } from "./ws-api/ws-client";
 
 export class ObjectService<T extends DatabaseObject> {
 
-  public list$: BehaviorSubject<T[]> = new BehaviorSubject([]);
+  private list$: BehaviorSubject<T[]> = new BehaviorSubject([]);
+
+  public get list(): Observable<T[]> {
+    return this.list$.pipe();
+  }
 
   public get(id: string): Observable<T> {
     return this.list$.pipe(
@@ -20,7 +24,7 @@ export class ObjectService<T extends DatabaseObject> {
   public getAll(): void {
     this.http.get<T[]>(`${environment.apiUrl}/v1/${this.path}`)
     .subscribe({
-      next: l => this.list$.next(l), 
+      next: l => this.list$.next(l),
       error: err => {
         console.log(err);
         this.list$.next([]);

@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { RouteService } from "src/app/shared/services/route.service";
 import { Route, RouteStatus } from "../../../shared/models/route.model";
-import { DefaultTable } from "../../components/data/default-table";
+import { DefaultTableDirective } from "../../components/data/default-table";
 
 @Component({
   templateUrl: "./routes-list-view.component.html",
   styleUrls: ["./routes-list-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RoutesListViewComponent extends DefaultTable<Route> {
+export class RoutesListViewComponent extends DefaultTableDirective<Route> {
 
   public displayedColumns: string[] = ["route", "name", "length", "avgTime", "status"];
 

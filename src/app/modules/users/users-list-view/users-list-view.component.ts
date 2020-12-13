@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { UserModel } from "src/app/shared/models/user.model";
 import { UserService } from "src/app/shared/services/user.service";
-import { DefaultTable } from "../../components/data/default-table";
+import { DefaultTableDirective } from "../../components/data/default-table";
 
 @Component({
   selector: "app-users-list-view",
@@ -9,7 +9,7 @@ import { DefaultTable } from "../../components/data/default-table";
   styleUrls: ["./users-list-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UsersListViewComponent extends DefaultTable<UserModel>{
+export class UsersListViewComponent extends DefaultTableDirective<UserModel>{
 
   displayedColumns = ["username", "lastActivity", "email", "role", "enabled"];
 

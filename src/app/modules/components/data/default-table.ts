@@ -10,7 +10,7 @@ import { ObjectService } from "src/app/shared/services/object.service";
 
 @UntilDestroy()
 @Directive()
-export abstract class DefaultTable<T extends DatabaseObject> implements AfterViewInit {
+export abstract class DefaultTableDirective<T extends DatabaseObject> implements AfterViewInit {
 
   public dataSource: MatTableDataSource<T>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -20,7 +20,7 @@ export abstract class DefaultTable<T extends DatabaseObject> implements AfterVie
   constructor(private service: ObjectService<T>) {
     this.dataSource = new MatTableDataSource([]);
     this.service.getAll();
-    this.service.list$.pipe(
+    this.service.list.pipe(
       untilDestroyed(this),
       filter(data => !!data),
     ).subscribe(data => this.dataSource.data = data);

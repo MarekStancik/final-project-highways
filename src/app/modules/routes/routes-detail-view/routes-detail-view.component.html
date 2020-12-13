@@ -2,20 +2,20 @@
     <form [formGroup]="group" (ngSubmit)="child.submit()" formView>
         <!-- Start Control  -->
         <mat-form-field appearance="outline">
-            <input type="text" placeholder="Start Point" formControlName="start" [matAutocomplete]="auto"
+            <input type="text" placeholder="Start Point" formControlName="start" [matAutocomplete]="autoStart"
                 matInput>
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-                    {{option}}
+            <mat-autocomplete autoActiveFirstOption #autoStart="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptionsStart$ | async" [value]="option.name">
+                    {{option.name}}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
         <!-- End Control -->
         <mat-form-field appearance="outline">
-            <input type="text" placeholder="End Point" formControlName="end" [matAutocomplete]="auto" matInput>
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-                    {{option}}
+            <input type="text" placeholder="End Point" formControlName="end" [matAutocomplete]="autoEnd" matInput>
+            <mat-autocomplete autoActiveFirstOption #autoEnd="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptionsEnd$ | async" [value]="option.name">
+                    {{option.name}}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>

@@ -5,7 +5,17 @@ import { SystemViewComponent } from "./system-view/system-view.component";
 const routes: Routes = [
   {
     path: "",
-    component: SystemViewComponent
+    component: SystemViewComponent,
+    children: [
+      {
+        path: "nodes",
+        loadChildren: () => import("../nodes/nodes.module").then(m => m.NodesModule)
+      },
+      {
+        path: "devices",
+        loadChildren: () => import("../devices/devices.module").then(m => m.DevicesModule)
+      }
+    ]
   }
 ];
 
