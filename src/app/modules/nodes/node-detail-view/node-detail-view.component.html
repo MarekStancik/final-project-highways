@@ -29,6 +29,14 @@
             <a [href]="getLink(obj.location)" target="_blank" rel="noopener noreferrer">
                 <app-detail-field name="Location" [value]="'Latitude: ' + (obj.location?.latitude || '-') + ' Longitude: ' + (obj.location?.longitude || '-')"></app-detail-field>
             </a>
-            <span>Devices</span>
+            <h2>Devices</h2>
+            
+            <div>
+                <span class="device-container" *ngFor="let device of obj.devices">
+                    {{device.name}}
+                    {{device.ipAddress}}
+                    {{device.state}}
+                </span>
+            </div>
     </ng-container>
 </app-default-detail-view>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
   selector: "app-default-list-view",
@@ -6,12 +6,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
   styleUrls: ["./default-list-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DefaultListViewComponent implements OnInit {
+export class DefaultListViewComponent {
   public detailOpened = false;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }
