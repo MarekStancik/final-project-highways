@@ -1,4 +1,5 @@
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { filter, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
@@ -23,13 +24,13 @@ export class ObjectService<T extends DatabaseObject> {
 
   public getAll(): void {
     this.http.get<T[]>(`${environment.apiUrl}/v1/${this.path}`)
-    .subscribe({
-      next: l => this.list$.next(l),
-      error: err => {
-        console.log(err);
-        this.list$.next([]);
-      }
-    });
+      .subscribe({
+        next: l => this.list$.next(l),
+        error: err => {
+          console.log(err);
+          this.list$.next([]);
+        }
+      });
   }
 
   public create(obj: T): Observable<T> {

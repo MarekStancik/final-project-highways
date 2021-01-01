@@ -20,7 +20,7 @@ export class TopMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  pascal(val: string) : string {
+  pascal(val: string): string {
     return val ? pascalCase(val) : "-";
   }
 }

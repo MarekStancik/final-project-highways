@@ -75,9 +75,8 @@ export class DefaultDetailViewComponent<T extends DatabaseObject> implements OnI
     ).subscribe();
   }
 
-  public async submit(): Promise<void> {
+  public submit(): void {
     this.mode$.pipe(
-      untilDestroyed(this),
       take(1),
       tap((mode) => {
         this.isSubmitting$.next(true);

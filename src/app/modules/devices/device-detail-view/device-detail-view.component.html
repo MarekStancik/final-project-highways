@@ -1,15 +1,16 @@
-<app-default-detail-view titleField="name" createTitle="Create Device" [icon]="icon" [group]="group" entityType="device" [service]="deviceService" [object$]="object$">
+<app-default-detail-view titleField="name" createTitle="Create Device" [icon]="icon" [group]="group" entityType="device"
+    [service]="deviceService" [object$]="object$">
     <form [formGroup]="group" (ngSubmit)="child.submit()" formView>
         <!-- Name -->
         <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput type="text" formControlName="name">
-        </mat-form-field>    
+        </mat-form-field>
         <!-- Name -->
         <mat-form-field appearance="outline">
             <mat-label>IP Address</mat-label>
             <input matInput type="text" formControlName="ipAddress">
-        </mat-form-field>    
+        </mat-form-field>
 
         <!-- Bottom Buttons -->
         <button type="submit" mat-button>Save</button>
@@ -17,8 +18,8 @@
     </form>
 
     <ng-container *ngIf="object$ | async as obj" showView>
-            <app-detail-field name="Name" [value]="obj.name"></app-detail-field>
-            <app-detail-field name="IP Address" [value]="obj.ipAddress"></app-detail-field>
-            <app-detail-field name="State" [value]="obj.state"></app-detail-field>
+        <app-detail-field name="Name" [value]="obj.name"></app-detail-field>
+        <app-detail-field name="IP Address" [value]="obj.ipAddress"></app-detail-field>
+        <app-detail-field name="State" [value]="obj.state"></app-detail-field>
     </ng-container>
 </app-default-detail-view>

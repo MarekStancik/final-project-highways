@@ -7,7 +7,7 @@
     <div class="content-wrapper">
         <!-- Form -->
         <ng-container *ngIf="mode === 'create' || mode === 'edit'; else view">
-                <ng-content select="[formView]"></ng-content>
+            <ng-content select="[formView]"></ng-content>
         </ng-container>
         <!-- View -->
         <ng-template #view>

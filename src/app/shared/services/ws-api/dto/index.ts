@@ -1,6 +1,5 @@
 import * as Authentication from "./authentication";
 import * as Common from "./common";
-import * as ErrorCodes from "./error-codes";
 import * as Events from "./events";
 
 export type Message =
@@ -10,4 +9,4 @@ export type Message =
 
 export type MessageStub<M extends Message> = Omit<M, "sequenceId"> & Partial<Pick<M, "sequenceId">>;
 
-export { Common, Authentication, ErrorCodes, Events };
+export { Common, Authentication, Events };

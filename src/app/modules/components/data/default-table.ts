@@ -10,7 +10,7 @@ import { ObjectService } from "src/app/shared/services/object.service";
 
 @UntilDestroy()
 @Directive()
-export abstract class DefaultTableDirective<T extends DatabaseObject> implements AfterViewInit {
+export class DefaultTableDirective<T extends DatabaseObject> implements AfterViewInit {
 
   public dataSource: MatTableDataSource<T>;
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -9,7 +9,7 @@
             </div>
         </div>
     </mat-drawer-content>
-    <mat-drawer #drawer mode="side" position="end" [opened]="detailOpened" class="drawer-wrapper">
+    <mat-drawer mode="side" position="end" [opened]="detailOpened" class="drawer-wrapper">
         <router-outlet (activate)="detailOpened = true" (deactivate)="detailOpened = false"></router-outlet>
     </mat-drawer>
 </mat-drawer-container>

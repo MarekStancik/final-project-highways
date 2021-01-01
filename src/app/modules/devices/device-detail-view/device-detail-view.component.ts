@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { faArrowsAlt, faHdd } from "@fortawesome/free-solid-svg-icons";
+import { faHdd } from "@fortawesome/free-solid-svg-icons";
 import { BehaviorSubject } from "rxjs";
 import { DeviceModel } from "src/app/shared/models/device.model";
 import { DeviceService } from "src/app/shared/services/device.service";
@@ -22,7 +22,6 @@ export class DeviceDetailViewComponent {
 
   public object$ = new BehaviorSubject<DeviceModel>(null);
 
-
   constructor(public deviceService: DeviceService) { }
-
 }
+
