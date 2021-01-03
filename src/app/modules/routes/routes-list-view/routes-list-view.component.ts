@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { RouteService } from "src/app/shared/services/route.service";
+import { RouteService } from "src/app/modules/routes/route.service";
 import { Route, RouteStatus } from "../../../shared/models/route.model";
 import { DefaultTableDirective } from "../../components/data/default-table";
 

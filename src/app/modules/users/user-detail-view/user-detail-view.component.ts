@@ -4,7 +4,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { BehaviorSubject } from "rxjs";
 import { Auth } from "src/app/shared/models/auth.model";
 import { UserModel } from "src/app/shared/models/user.model";
-import { UserService } from "src/app/shared/services/user.service";
+import { UserService } from "src/app/modules/users/user.service";
 import { DefaultDetailViewComponent } from "../../components/data/default-detail-view/default-detail-view.component";
 
 @Component({

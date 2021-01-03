@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UserModel } from "../models/user.model";
-import { ObjectService } from "./object.service";
-import { WsClient } from "./ws-api/ws-client";
+import { UserModel } from "../../shared/models/user.model";
+import { ObjectService } from "../../shared/services/object.service";
+import { WsClient } from "../../shared/services/ws-api/ws-client";
 
 @Injectable({
     providedIn: "root"

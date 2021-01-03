@@ -6,8 +6,8 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 import { NodeModel } from "src/app/shared/models/node.model";
 import { Route } from "src/app/shared/models/route.model";
-import { NodeService } from "src/app/shared/services/node.service";
-import { RouteService } from "src/app/shared/services/route.service";
+import { NodeService } from "src/app/modules/nodes/node.service";
+import { RouteService } from "src/app/modules/routes/route.service";
 import { DefaultDetailViewComponent } from "../../components/data/default-detail-view/default-detail-view.component";
 
 @UntilDestroy()

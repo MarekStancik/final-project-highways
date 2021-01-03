@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { DeviceService } from "src/app/modules/devices/device.service";
 import { DeviceModel } from "src/app/shared/models/device.model";
-import { DeviceService } from "src/app/shared/services/device.service";
 import { DefaultTableDirective } from "../../components/data/default-table";
 
 @Component({

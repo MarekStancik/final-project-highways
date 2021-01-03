@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { NodeModel } from "src/app/shared/models/node.model";
-import { NodeService } from "src/app/shared/services/node.service";
+import { NodeService } from "src/app/modules/nodes/node.service";
 import { DefaultTableDirective } from "../../components/data/default-table";
 
 @Component({

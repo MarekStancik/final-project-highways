@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { faHdd } from "@fortawesome/free-solid-svg-icons";
 import { BehaviorSubject } from "rxjs";
 import { DeviceModel } from "src/app/shared/models/device.model";
-import { DeviceService } from "src/app/shared/services/device.service";
+import { DeviceService } from "src/app/modules/devices/device.service";
 import { DefaultDetailViewComponent } from "../../components/data/default-detail-view/default-detail-view.component";
 
 @Component({

@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { faArrowsAlt, faBacon } from "@fortawesome/free-solid-svg-icons";
 import { BehaviorSubject } from "rxjs";
 import { NodeModel } from "src/app/shared/models/node.model";
-import { NodeService } from "src/app/shared/services/node.service";
+import { NodeService } from "src/app/modules/nodes/node.service";
 import { DefaultDetailViewComponent } from "../../components/data/default-detail-view/default-detail-view.component";
 
 @Component({

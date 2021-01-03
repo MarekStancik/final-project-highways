@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { UserModel } from "src/app/shared/models/user.model";
-import { UserService } from "src/app/shared/services/user.service";
+import { UserService } from "src/app/modules/users/user.service";
 import { DefaultTableDirective } from "../../components/data/default-table";
 
 @Component({
