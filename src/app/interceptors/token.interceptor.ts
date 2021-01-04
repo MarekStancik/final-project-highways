@@ -11,9 +11,6 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private router: Router) {
   }
 
-  /**
-   * adds authorization token to header of all http requests
-   */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const currentUserToken = localStorage.getItem(SESSION_TOKEN);
     if (currentUserToken) {

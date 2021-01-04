@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { filter, map, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { AuthService } from "../auth.service";
@@ -11,7 +11,7 @@ import { ActionType, EntityType, EventMessage } from "./dto/events";
 })
 export class WsClient {
 
-    private internalReceive$: BehaviorSubject<Message> = new BehaviorSubject(null);
+    private internalReceive$: Subject<Message> = new Subject();
     private ws: WebSocket;
 
     constructor(private auth: AuthService) {
@@ -20,7 +20,6 @@ export class WsClient {
 
     public listen<T>(action: ActionType, object: EntityType): Observable<T> {
       return this.internalReceive$.pipe(
-        filter(m => !!m),
         filter(m => m.type === "event"),
         map(m => m as EventMessage),
         filter((m: EventMessage) => m.action === action && m.objectType === object),
@@ -51,7 +50,6 @@ export class WsClient {
 
       // React to keepalive requests
       this.internalReceive$.pipe(
-        filter(m => !!m),
         filter(m => m.type === "common.keepalive"),
         tap(m => this.send({type: "common.keepalive", sequenceId: m.sequenceId}))
         ).subscribe();

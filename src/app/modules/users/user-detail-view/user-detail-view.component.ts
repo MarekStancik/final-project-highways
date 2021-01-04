@@ -15,7 +15,7 @@ export class UserDetailViewComponent {
 
   @ViewChild(DefaultDetailViewComponent) child: DefaultDetailViewComponent<UserModel>;
 
-  public roles: Auth.AuthorizationType[] = ["admin", "manager", "user"];
+  public roles: Auth.AuthorizationType[] = ["admin", "manager", "user", "techie"];
   public icon = faUser;
   public group = new FormGroup({
     username: new FormControl(""),

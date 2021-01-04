@@ -19,7 +19,7 @@ export namespace Auth {
 
     export type Permissions = Record<ResourceType, OperationType[]>;
 
-    export type AuthorizationType = "admin" | "user" | "manager";
+    export type AuthorizationType = "admin" | "user" | "manager" | "techie";
 
     export interface Info {
         permissions: Permissions;

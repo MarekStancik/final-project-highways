@@ -7,6 +7,4 @@ export type Message =
     Authentication.RequestDto | Authentication.ResponseDto |
     Events.EventMessage;
 
-export type MessageStub<M extends Message> = Omit<M, "sequenceId"> & Partial<Pick<M, "sequenceId">>;
-
 export { Common, Authentication, Events };
